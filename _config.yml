@@ -17,7 +17,7 @@ title: Clayton's Playground
 email: clayton@meuping.com
 description: >- # this means to ignore newlines until "baseurl:"
   This is my personal blog, some toughts and experiences are posted here...
-  Stay in touch... see you...
+  Stay in touch... see you!
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://clayton.id" # the base hostname a protocol for your site, e.g. http://example.com
 twitter_username: claytoncova
