@@ -22,6 +22,7 @@ group :jekyll_plugins do
     gem 'webrick'
 end
 group :other_plugins do
+    gem 'faraday-retry'
     gem 'css_parser'
     gem 'feedjira'
     gem 'httparty'
