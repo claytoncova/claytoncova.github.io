@@ -25,16 +25,16 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 
 -->
 
-# **💡INTERPRETAÇÃO DAS ESCRITURAS**
+# **💡INTERPRETAÇÃO DAS ESCRITURAS** 📖
 
-Seminário de Bibliologia - Tópico 5
+⛪Seminário de Bibliologia - Tópico 5
 
-Docente Pr. José Alves
-Discente Clayton Guimarães Cova dos Santos
+🧑‍🏫Docente Pr. José Alves
+🧑‍🎓Discente Clayton Guimarães Cova dos Santos
 
 ---
 
-# Dureza do Coração Humano - Pt.1
+# 💔 Dureza do Coração Humano - Pt.1
 
 ### Diálogo:
 
@@ -43,7 +43,7 @@ Ou a suposta clareza das Escrituras não fala por si só?”
 
 ---
 
-# Dureza do Coração Humano - Pt.2
+# 💔 Dureza do Coração Humano - Pt.2
 
 ### Diálogo:
 
@@ -52,7 +52,7 @@ Uma igreja contemporânea que aceita o homossexualismo entre evangélicos se fun
 
 
 ---
-# Dureza do Coração Humano - Pt.3
+# 💔 Dureza do Coração Humano - Pt.3
 
 ### Diálogo:
 
@@ -61,8 +61,9 @@ se fundir, como para se expandir, propagar. Outro motivo pode ser por que a bíb
 
 ---
 
-# Introdução
+# Introdução 🏳️
 
+- A importância do estudo;
 - Dureza do Coração do Homem;
 - Autossuficiencia do seu Entendimento;
 - Método Interpretativo
@@ -70,7 +71,7 @@ se fundir, como para se expandir, propagar. Outro motivo pode ser por que a bíb
 
 ---
 
-# Método Interpretativo - Pt. 1
+# 🔎 Método Interpretativo - Pt. 1
 
  - **Literal** 
 
@@ -84,7 +85,7 @@ se fundir, como para se expandir, propagar. Outro motivo pode ser por que a bíb
     - Considera como alegorias passagens do Texto Sagrado como base para interpretações;
 
 ---
-# Método Interpretativo - Pt. 2
+# 🔎 Método Interpretativo - Pt. 2
 
 - **Histórico Gramatical**
 
@@ -93,4 +94,21 @@ se fundir, como para se expandir, propagar. Outro motivo pode ser por que a bíb
     - Procurar entender a intenção do autor; compreender para quem o autor estava escrevendo etc.  
 
 ---
+# ⁉️ Doutrina Inexistente
 
+  - Valoriza-se a capacidade do intelecto humano;
+  - Conforma-se o texto bíblico às necessidades das pessoas;
+  - Desconsideram o autor, cultura e a época do texto;
+  - Formaliza-se doutrinas e dogmas não autorizadas na Escritura;
+  
+Exemplos
+
+    - Podemos falar a língua dos anjos (I Coríntios 13.1);
+    - Se a criança aprender a servir a Deus, jamais o deixará (Provérbios 22.6);
+    - As palavras têm poder (Provérbios 18.21; ver Lamentações 3.37);
+    - Se eu crer serei salvo e comigo toda minha casa (Atos 16.31).  
+---
+
+# Outros Métodos
+
+Cf. Milton S. TERRY, Biblical hermeneutics, p. 163-74, observam métodos como o haláquico, o hagádico, o alegórico, o místico, o conciliatório, o moral, o naturalístico, o mítico, o apologético, o dogmático e o histórico gramatical.
