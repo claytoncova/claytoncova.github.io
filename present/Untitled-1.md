@@ -25,90 +25,94 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 
 -->
 
-# **💡INTERPRETAÇÃO DAS ESCRITURAS** 📖
+# **💡A Onisciência de Deus**
 
-⛪Seminário de Bibliologia - Tópico 5
+⛪Seminário de Teontologia
+ 
+**Os atributos de Deus**
+**Cap.3 - Arthur W. Pink.** 
 
-🧑‍🏫Docente Pr. José Alves
-🧑‍🎓Discente Clayton Guimarães Cova dos Santos
-
----
-
-# 💔 Dureza do Coração Humano - Pt.1
-
-### Diálogo:
-
-“Se a Bíblia se explica pela própria Bíblia, por que então, existem tantas Igrejas evangélicas? 
-Ou a suposta clareza das Escrituras não fala por si só?”
+🧑‍🏫Docente: Pr. José Alves
+🧑‍🎓Discente: Clayton Guimarães Cova dos Santos
 
 ---
 
-# 💔 Dureza do Coração Humano - Pt.2
+# Deus é onisciente.
 
-### Diálogo:
+- Conhece perfeitamente tudo!
 
-“Porque cada denominação evangélica interpreta a bíblia de um jeito. 
-Uma igreja contemporânea que aceita o homossexualismo entre evangélicos se fundamenta no seguinte trecho da bíblia: porque no amor não há lei. E daí nasceu mais uma igreja evangélica, totalmente errada. Os evangélicos acreditam no casamento entre pastores e suas esposas. Porque diz a bíblia que o homem não nasceu para ser só, os católicos não aceitam o casamento de padres."
+- Não há nada que Ele esqueça! 
 
+- Seu conhecimento é perfeito;
 
----
-# 💔 Dureza do Coração Humano - Pt.3
+- Ele jamais erra;
 
-### Diálogo:
-
-"Cada um interpreta a bíblia a luz de sua teoria, a meu ver pessoalmente. E ninguém chega a um consenso. Mais tudo se baseia na interpretação da bíblia, tanto para 
-se fundir, como para se expandir, propagar. Outro motivo pode ser por que a bíblia ser um livro de difícil interpretação, o livro mais complexo do mundo”.
+- o Deus a quem temos de 
+prestar contas!
 
 ---
 
-# Introdução 🏳️
+# Ele é invisível, nós não.
 
-- A importância do estudo;
-- Dureza do Coração do Homem;
-- Autossuficiencia do seu Entendimento;
-- Método Interpretativo
-- Doutrina Inexistente
+
+- Nada oculta o pecador dos olhos do Onisciente;
+
+- O criador testemunha tudo;
+- O pecado não se pode ocultar;
+- Os ímpios odeiam essa perfeição divina;
+- Deus examina os corações;
+
+---
+# A verdade e consolação para o crente.
+
+- "Mas ele sabe o meu caminho..." (Jo 23:10)
+- " ... conhece a nossa  estrutura; lembra-se de que somos pó" (Salmo 103:14)
+- É estimulo para orar;
+- Conhece nossos pensamentos;
+- Conhece nossas intenções;
+- Mente infinita;
+
+- Ainda pensando, eles nos ouve;
 
 ---
 
-# 🔎 Método Interpretativo - Pt. 1
+# Conhece o passado, presente e futuro
 
- - **Literal** 
+- Tudo é dependente totalmente dEle;
 
-    - Interpretação Literal da Palavra de Deus
-    - Entendimento da exatidão do escrito;
-    - Rejeita o que não está evidente no Texto Sagrado;
+- Ele planejou tudo;
 
- - **Alegórico**
+- "O conselho do Senhor permanecerá" (Pv. 19:21)
 
-    - Procura encontrar os sentidos ocultos do texto;
-    - Considera como alegorias passagens do Texto Sagrado como base para interpretações;
+- Seu planejamento está garantido;
 
----
-# 🔎 Método Interpretativo - Pt. 2
-
-- **Histórico Gramatical**
-
-    - Comparar os textos bíblicos;  
-    - Compreender o contexto histórico, cultural, político, religioso etc;  
-    - Procurar entender a intenção do autor; compreender para quem o autor estava escrevendo etc.  
+- Não há possibilidades para Deus, há certeza;
 
 ---
-# ⁉️ Doutrina Inexistente
 
-  - Valoriza-se a capacidade do intelecto humano;
-  - Conforma-se o texto bíblico às necessidades das pessoas;
-  - Desconsideram o autor, cultura e a época do texto;
-  - Formaliza-se doutrinas e dogmas não autorizadas na Escritura;
-  
-Exemplos
+# O conhecimento de Deus é demonstrado
 
-    - Podemos falar a língua dos anjos (I Coríntios 13.1);
-    - Se a criança aprender a servir a Deus, jamais o deixará (Provérbios 22.6);
-    - As palavras têm poder (Provérbios 18.21; ver Lamentações 3.37);
-    - Se eu crer serei salvo e comigo toda minha casa (Atos 16.31).  
+ - No Velho Testamento
+
+ - No Novo Testamento;
+
+ - Nas alianças e promessas;
+
+ - Em Cristo Jesus;
+
+ - O que há de vir;
+
 ---
+# A vontade de Deus como causa
 
-# Outros Métodos
+- Tudo há de continuar de acordo com a vontade de Deus (Genesis 8:22);
 
-Cf. Milton S. TERRY, Biblical hermeneutics, p. 163-74, observam métodos como o haláquico, o hagádico, o alegórico, o místico, o conciliatório, o moral, o naturalístico, o mítico, o apologético, o dogmático e o histórico gramatical.
+- Ele concebeu o que viria de acontecer e seu plano redentor;
+
+- O Conhecimento infinito de Deus deveria nos encher de assombro;
+
+- Deveria nos encher de adoração a Ele;
+
+- Ele previu todas nossas faltas, todos os nossos pecados;
+
+- Ainda sim sonda nosso coração e mantém-nos firme no Seu propósito.
