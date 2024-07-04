@@ -25,94 +25,52 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 
 -->
 
-# **💡A Onisciência de Deus**
+# **Ping**
 
-⛪Seminário de Teontologia
- 
-**Os atributos de Deus**
-**Cap.3 - Arthur W. Pink.** 
-
-🧑‍🏫Docente: Pr. José Alves
-🧑‍🎓Discente: Clayton Guimarães Cova dos Santos
+Definir o ICP;
 
 ---
 
-# Deus é onisciente.
+Definir um bom ICP:
+Quais dores do mercado a minha solução resolve?
 
-- Conhece perfeitamente tudo!
-
-- Não há nada que Ele esqueça! 
-
-- Seu conhecimento é perfeito;
-
-- Ele jamais erra;
-
-- o Deus a quem temos de 
-prestar contas!
+R: Necessidade de conformidade processual, desorganização, perda de documentos, auditoria difícil, falta de transparência e ineficiência processual;
 
 ---
 
-# Ele é invisível, nós não.
+Quais clientes têm maior potencial de crescimento e ROI positivo?
+R: Empresas do ramo de saúde ocupacional, que necessita de organização do fluxo processual, melhorar eficiência na administrativa.  
 
+R2: Os que possuem fluxo processual desorganizado, em papel, com vários sistemas não integrados, lentidão processual, falta de transparência
 
-- Nada oculta o pecador dos olhos do Onisciente;
-
-- O criador testemunha tudo;
-- O pecado não se pode ocultar;
-- Os ímpios odeiam essa perfeição divina;
-- Deus examina os corações;
+ Qual é o CAC (custo de aquisição do cliente) para cada cliente?
+R: 
 
 ---
-# A verdade e consolação para o crente.
+Qual é o perfil de cliente do meu concorrente?
+R: Clínicas do trabalho, empresas que realizam auditoria em saúde e precisam comprovar atividades com conexão ao eSocial
 
-- "Mas ele sabe o meu caminho..." (Jo 23:10)
-- " ... conhece a nossa  estrutura; lembra-se de que somos pó" (Salmo 103:14)
-- É estimulo para orar;
-- Conhece nossos pensamentos;
-- Conhece nossas intenções;
-- Mente infinita;
 
-- Ainda pensando, eles nos ouve;
 
----
+Segmento do mercado:
+R: Clínicas de saúde ocupacional, profissionais de saúde, hospitais e operadoras de saúde.
 
-# Conhece o passado, presente e futuro
+Tamanho das empresas:
+R: de 30 a 400 funcionários/usuários
 
-- Tudo é dependente totalmente dEle;
+Ticket médio:
+R: 5.000,00 
 
-- Ele planejou tudo;
-
-- "O conselho do Senhor permanecerá" (Pv. 19:21)
-
-- Seu planejamento está garantido;
-
-- Não há possibilidades para Deus, há certeza;
 
 ---
+Localização geográfica
+R: Nacional
 
-# O conhecimento de Deus é demonstrado
+Meios de comunicação e tecnologias mais utilizadas
+R: Landpage, linkedin, whatsapp, meets/zoom, e-mail, ligações
 
- - No Velho Testamento
 
- - No Novo Testamento;
+Principais problemas que enfrenta, que a sua solução consegue resolver
+R: Desorganização processual, gasto com papel e insumos, lentidão e falta de transparência no fluxo de negócios.
 
- - Nas alianças e promessas;
 
- - Em Cristo Jesus;
-
- - O que há de vir;
-
----
-# A vontade de Deus como causa
-
-- Tudo há de continuar de acordo com a vontade de Deus (Genesis 8:22);
-
-- Ele concebeu o que viria de acontecer e seu plano redentor;
-
-- O Conhecimento infinito de Deus deveria nos encher de assombro;
-
-- Deveria nos encher de adoração a Ele;
-
-- Ele previu todas nossas faltas, todos os nossos pecados;
-
-- Ainda sim sonda nosso coração e mantém-nos firme no Seu propósito.
