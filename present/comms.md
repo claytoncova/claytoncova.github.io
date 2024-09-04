@@ -24,76 +24,97 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 ![bg left:40% 100%](logo_ping.png)
 
 
-### **Financeiro - Report 202407**
-
-Julho;
+### **Clayton G C Santos**
+sócio fundador
 
 ---
 
-# MRR:
-- Abril: R$65.799,86
-- Maio: R$64.379,24
-- Junho: R$66.403,34
-- Julho: R$66.702,25
+# Visão geral :
 
-## Ponto de atenção: 
- - Inadimplência: R$ 15.408,95 
- 
----
+Ping. Uma solução de gestão de processos, documentos e assinaturas fim a fim, all-in-one, orientado a fluxo, automações e inteligência de negócio.
 
-# Receitas:
+# Problema :
+Dificuldade do tratamento das informações. Lentidão para fechamento de contratos, análises de compliance,auditorias e tomada de decisão, em inúmeros sistemas que não se comunicam ou não tratam o fluxo de forma unificada. 
 
-- Abril: R$65.799,86 - **R$70.825,86**
-- Maio: R$64.379,24 - **R$64.379,24**
-- Junho: R$66.403,34 - **R$71.385,56**
-- Julho: R$66.702,25 - **R$69.202,25**
-- Agosto: R$65.135,98
-
-## Ponto de atenção: 
- - Inadimplência: R$ 15.408,95 
- (Dydyo, Simpol, ADAPTS e Efson)
-
---- 
-# Despesas:		
-- Abril: R$64.427,40
-- Maio: R$58.620,81
-- Junho: R$63.457,53
-- Julho: R$58.566,28
-- Agosto: R$63.423,93
-
-## Pontos de Atenção: 
- - Viagem - Startup Summit.
----
-
-## Startup Summit
-
-- Sugestão: R$ 220,00 por pessoa/dia;
-
-## Saldo mensal para investimentos:
-
-- ~ R\$ 5 k
-
-## Demais dados no DRE
- - Atualizado até 1 de agosto de 2024.
 
  ---
-## Alinhamento
 
-- Relatórios e NFS: **de 20 até dia 01**;
-- Relatório Investidores: **dia 20**;
-- Pagamentos: **de 01 até dia 05**;
-- Adiantamentos de salário: **até 20%**;
-- Multas e juros;
-  - **1% e IPCA**;
+# Vídeo 🎞️
+
 
 ---
-## Planejamento 2° Sem.
 
-- FINAN até 01/09/2024;
-- Retorno ao P.D.;
-- Sem pró-labore;
-- Integrações e migrações;
-- Implementar feat de ML;
-- Participação ativa nas reuniões dos sócios;
+# Desafios de uma startup 🚀
+
+- Ser relevante (PMF - Product Market Fit);
 
 
+- Burocracia;
+
+
+- Custo operacional;
+
+
+- Incentivo;
+
+---
+
+# Pontos de atenção ⚠️
+
+- Sócios;
+
+- Capital;
+
+- Mentoria;
+
+- Receita;
+
+---
+# Fundamentos ⚖️ Objetivos:
+
+Estamos em um momento em que o tempo para os fundamentos concorre com o tempo de fazer.
+
+ - O que é necessário?
+ - O que é relevante?
+ - O que é diferencial?
+---
+
+# Necessário
+
+- Português;
+- Leitura em inglês;
+- Algoritmos e Estrutura de Dados;
+- Redes TCP/IP;
+- SGBD - Bancos de Dados;
+---
+
+# Relevante
+
+- Inglês, fala e escrita;
+- Linux;
+- Virtualização;
+- Framework de programação;
+- Repositório de código;
+- Nuvem;
+- Método;
+
+---
+
+# Diferencial
+
+- Obstinado para resolver;
+- Comunicar ideias;
+- Criar consenso;
+- Pontualidade e constância;
+- Ética e honestidade;
+
+---
+
+# Oportunidades
+
+- IA generativa;
+- No-Code Apps;
+- Complexidade das soluções;
+- Integrações;
+
+---
