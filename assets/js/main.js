@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //Animação do Mario
     var player = document.getElementById('mario')
     var powerup = {
-    audio: new Audio('http://themushroomkingdom.net/sounds/wav/smb/smb_powerup.wav'),
+    audio: new Audio('https://themushroomkingdom.net/sounds/wav/smb/smb_powerup.wav'),
     play: function() { 
         this.audio.currentTime = 0;
         this.audio.play() 
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (e.keyCode == 85) {
         player.classList.toggle('big')
-        //new Audio('http://themushroomkingdom.net/sounds/wav/smb/smb_powerup.wav').play()
+        //new Audio('https://themushroomkingdom.net/sounds/wav/smb/smb_powerup.wav').play()
         powerup.play(); // fix network lag sound    
         updateElement(player, 0, 0)
     }
