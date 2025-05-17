@@ -78,11 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
     var x = Number(element.getAttribute('data-x')) + incx
     var y = Number(element.getAttribute('data-y')) + incy
     
-    /*
     // Ejemplo básico de límite de regiões
-    if ((x < 0) || (x > 600)) 
+    if ((x < 10) || (x > 1200)) 
         return
-    */
     
     element.style.transform = 'translate('+ x +'px, '+ y +'px)'
     
