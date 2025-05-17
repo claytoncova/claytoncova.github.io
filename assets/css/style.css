@@ -202,3 +202,27 @@ footer {
     clip: rect(0, 0, 0, 0);
     border: 0;
 } 
+
+#mario {
+    width:58px;
+    height:100px;
+    border:0px solid #000;
+    background-image:url(https://cdn.rawgit.com/ManzDev/cursos-assets/gh-pages/css3/mario-sprite.png);
+}
+
+.big {
+    image-rendering:pixelated;
+    position:relative;
+    top:-50px;
+}
+
+/* Css Caminhar */
+@keyframes walk {
+    0% { background-position:0 0 }
+    100% { background-position:120px 0 }
+}
+
+/* ativar animação quando a tecla é ativada */
+.caminar {
+    animation:walk .25s steps(2) infinite forwards;
+}
