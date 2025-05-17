@@ -207,7 +207,7 @@ footer {
     width:58px;
     height:100px;
     border:0px solid #000;
-    background-image:url(https://cdn.rawgit.com/ManzDev/cursos-assets/gh-pages/css3/mario-sprite.png);
+    background-image:url(assets/mario-sprite.png);
 }
 
 .big {
