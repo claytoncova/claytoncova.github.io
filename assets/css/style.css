@@ -135,9 +135,18 @@ section h2 {
     margin: 0 auto;
 }
 
+/* Lista de Educação */
+.education-list {
+    display: grid;
+    max-width: 800px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
 /* Grid de Habilidades */
 .skills-grid {
     display: grid;
+    max-width: 800px;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
 }
