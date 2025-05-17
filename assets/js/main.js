@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var y = Number(element.getAttribute('data-y')) + incy
     
     // Ejemplo básico de límite de regiões
-    if ((x < 0) || (x > (window.innerWidth - 70))) 
+    if ((x < 0) || (x > (window.innerWidth - 80))) 
         return
     
     element.style.transform = 'translate('+ x +'px, '+ y +'px)'
