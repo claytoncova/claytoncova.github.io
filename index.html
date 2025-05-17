@@ -43,12 +43,24 @@
                     <div class="profile-info">
                         <h1>Clayton G C Santos</h1>
                         <h2>M.Eng.</h2>
-                        <div class="social-links">
-                            <a href="#" target="_blank" aria-label="Whatsapp"><i class="fab fa-whatsapp"></i></a>
-                            <a href="https://www.linkedin.com/in/claytoncova/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="https://github.com/claytoncova" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                            <a href="https://www.instagram.com/prof.clayton.id/" target="_blank" aria-label="Twitter"><i class="fab fa-instagram"></i></a>
+                    
+                    <!-- Seção de links de redes sociais. TODO: Tornar template JS -->
+                    <div class="social-links">
+                        <a href="#" data-url-template="https://wa.me/5569{param}?text=oi" aria-label="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.linkedin.com/in/claytoncova/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/claytoncova" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.instagram.com/prof.clayton.id/" target="_blank" aria-label="Twitter"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <!-- Rotina para anonimizar o whats -->
+                    <div id="inputPopup" style="display: none;">
+                        <div>
+                            <h2>🤖 Você é um Bot?</h2>
+                            <p>Insira o número: ᑫ3ᑫ37ƽƽ6</p>
+                            <input type="text" id="parameterInput" placeholder="Digite o número sem espaços.">
+                            <button onclick="closePopup()">Cancelar</button>
+                            <button onclick="submitParameter()">Abrir Whatsapp!</button>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -121,22 +133,23 @@
                 </div>
                 <div class="footer-section">
                     <h3>Redes Sociais</h3>
+                    <!-- Seção de links de redes sociais. TODO: Tornar template JS -->
                     <div class="social-links">
                         <a href="#" data-url-template="https://wa.me/5569{param}?text=oi" aria-label="Whatsapp"><i class="fab fa-whatsapp"></i></a>
                         <a href="https://www.linkedin.com/in/claytoncova/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                         <a href="https://github.com/claytoncova" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
                         <a href="https://www.instagram.com/prof.clayton.id/" target="_blank" aria-label="Twitter"><i class="fab fa-instagram"></i></a>
                     </div>
-                        <!-- Rotina para anonimizar o whats -->
-                        <div id="inputPopup" style="display: none;">
-                            <div>
-                                <h2>🤖 Você é um Bot?</h2>
-                                <p>Insira o número: ᑫ3ᑫ37ƽƽ6</p>
-                                <input type="text" id="parameterInput" placeholder="Digite o número sem espaços.">
-                                <button onclick="closePopup()">Cancelar</button>
-                                <button onclick="submitParameter()">Abrir Whatsapp!</button>
-                            </div>
+                    <!-- Rotina para anonimizar o whats -->
+                    <div id="inputPopup" style="display: none;">
+                        <div>
+                            <h2>🤖 Você é um Bot?</h2>
+                            <p>Insira o número: ᑫ3ᑫ37ƽƽ6</p>
+                            <input type="text" id="parameterInput" placeholder="Digite o número sem espaços.">
+                            <button onclick="closePopup()">Cancelar</button>
+                            <button onclick="submitParameter()">Abrir Whatsapp!</button>
                         </div>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
