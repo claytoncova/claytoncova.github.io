@@ -1,0 +1,135 @@
+/* Tema Claro (padrão) */
+:root {
+    /* Cores principais */
+    --color-primary: #2563eb;
+    --color-primary-hover: #1d4ed8;
+    --color-secondary: #64748b;
+    --color-accent: #f59e0b;
+    
+    /* Cores de fundo */
+    --color-background: #ffffff;
+    --color-background-alt: #f8fafc;
+    --color-background-nav: rgba(255, 255, 255, 0.8);
+    
+    /* Cores de texto */
+    --color-text: #1e293b;
+    --color-text-muted: #64748b;
+    --color-text-light: #94a3b8;
+    
+    /* Cores de borda */
+    --color-border: #e2e8f0;
+    
+    /* Sombras */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+/* Tema Escuro */
+[data-theme="dark"] {
+    /* Cores principais */
+    --color-primary: #3b82f6;
+    --color-primary-hover: #60a5fa;
+    --color-secondary: #94a3b8;
+    --color-accent: #fbbf24;
+    
+    /* Cores de fundo */
+    --color-background: #0f172a;
+    --color-background-alt: #1e293b;
+    --color-background-nav: rgba(15, 23, 42, 0.8);
+    
+    /* Cores de texto */
+    --color-text: #f1f5f9;
+    --color-text-muted: #cbd5e1;
+    --color-text-light: #94a3b8;
+    
+    /* Cores de borda */
+    --color-border: #334155;
+    
+    /* Sombras */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+}
+
+/* Aplicação das cores */
+body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+.main-nav {
+    background-color: var(--color-background-nav);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.logo a {
+    color: var(--color-primary);
+}
+
+.nav-links a {
+    color: var(--color-text);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--color-primary);
+}
+
+.nav-links a::after {
+    background-color: var(--color-primary);
+}
+
+.social-links a {
+    color: var(--color-text-muted);
+}
+
+.social-links a:hover {
+    color: var(--color-primary);
+}
+
+section {
+    background-color: var(--color-background);
+}
+
+section:nth-child(even) {
+    background-color: var(--color-background-alt);
+}
+
+footer {
+    background-color: var(--color-background-alt);
+    border-top: 1px solid var(--color-border);
+}
+
+.footer-bottom {
+    border-top-color: var(--color-border);
+}
+
+/* Botão de tema */
+.theme-toggle button {
+    background: none;
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-speed);
+}
+
+.theme-toggle button:hover {
+    background-color: var(--color-background-alt);
+}
+
+/* Transições suaves entre temas */
+body,
+.main-nav,
+.logo a,
+.nav-links a,
+.social-links a,
+section,
+footer,
+.theme-toggle button {
+    transition: background-color var(--transition-speed),
+                color var(--transition-speed),
+                border-color var(--transition-speed);
+} 
