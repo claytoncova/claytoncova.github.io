@@ -19,6 +19,25 @@ body {
     line-height: 1.6;
     transition: background-color var(--transition-speed), color var(--transition-speed);
 }
+/* Defualt link colors*/
+a:link {
+    color: #22457f;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #7cabf6;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #6b98df;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
 
 /* Container */
 .container {
