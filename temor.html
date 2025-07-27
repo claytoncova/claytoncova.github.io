@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temor: Conceito Vernacular vs. Bíblico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 50px;
+        }
+
+        .definitions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .definition-card {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .definition-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+        }
+
+        .definition-card:nth-child(2)::before {
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+        }
+
+        .definition-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .definition-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .concept {
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .characteristics {
+            margin-top: 20px;
+        }
+
+        .characteristics h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+
+        .characteristics ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .characteristics li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .characteristics li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-size: 1.5rem;
+            top: -2px;
+        }
+
+        .comparison {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+
+        .comparison h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: #2c3e50;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #ecf0f1;
+            transition: background-color 0.3s ease;
+        }
+
+        .comparison-table tr:hover td {
+            background-color: #f8f9fa;
+        }
+
+        .comparison-table tr:nth-child(even) td {
+            background-color: #fdfdfd;
+        }
+
+        .comparison-table tr:nth-child(odd) td {
+            background-color: #ffffff;
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: #2c3e50;
+            background: linear-gradient(90deg, rgba(52, 152, 219, 0.1), transparent);
+        }
+
+        .conclusion {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-style: italic;
+            border-top: 1px solid #ecf0f1;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .definitions {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            header {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TEMOR</h1>
+            <p class="subtitle">Conceito Vernacular em Contraste com o Conceito Bíblico</p>
+        </header>
+
+        <main class="content">
+            <section class="definitions">
+                <article class="definition-card">
+                    <h2>📚 Definição Vernacular</h2>
+                    <div class="concept">
+                        <strong>Conceito:</strong> Medo, receio ou apreensão diante de algo que representa perigo, ameaça ou incerteza.
+                    </div>
+                    <div class="characteristics">
+                        <h3>Características:</h3>
+                        <ul>
+                            <li>Emoção negativa de autopreservação</li>
+                            <li>Resposta a ameaças reais ou percebidas</li>
+                            <li>Gera ansiedade, fuga ou paralisia</li>
+                            <li>Foco na própria segurança e bem-estar</li>
+                            <li>Pode ser racional ou irracional</li>
+                            <li>Frequentemente associado ao sofrimento</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="definition-card">
+                    <h2>✝️ Definição Bíblica (Teologia Reformada)</h2>
+                    <div class="concept">
+                        <strong>Conceito:</strong> Reverência, respeito profundo e reconhecimento da majestade, santidade e soberania de Deus.
+                    </div>
+                    <div class="characteristics">
+                        <h3>Características:</h3>
+                        <ul>
+                            <li>Atitude de adoração e submissão</li>
+                            <li>Reconhecimento da própria finitude diante do infinito</li>
+                            <li>Mistura de reverência, admiração e santo respeito</li>
+                            <li>Conduz à obediência e sabedoria</li>
+                            <li>É o "princípio da sabedoria" (Provérbios 1:7)</li>
+                            <li>Compatível com amor e confiança em Deus</li>
+                            <li>Não elimina a intimidade, mas a fundamenta adequadamente</li>
+                        </ul>
+                    </div>
+                </article>
+            </section>
+
+            <section class="comparison">
+                <h2>⚖️ Comparação Esquemática</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th>Temor Vernacular</th>
+                            <th>Temor Bíblico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Natureza</strong></td>
+                            <td>Emoção defensiva</td>
+                            <td>Atitude reverencial</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Objeto</strong></td>
+                            <td>Ameaças/perigos</td>
+                            <td>Majestade divina</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Resultado</strong></td>
+                            <td>Paralisia/fuga</td>
+                            <td>Obediência/sabedoria</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relação</strong></td>
+                            <td>Distanciamento</td>
+                            <td>Proximidade respeitosa</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Propósito</strong></td>
+                            <td>Autopreservação</td>
+                            <td>Adoração e crescimento</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Compatibilidade</strong></td>
+                            <td>Oposto ao amor</td>
+                            <td>Compatível com amor</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Efeito</strong></td>
+                            <td>Diminui a pessoa</td>
+                            <td>Eleva e edifica a pessoa</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="conclusion">
+                <p>
+                    <strong>Conclusão:</strong> O temor bíblico transcende o medo comum ao estabelecer uma relação adequada entre criatura e Criador, sendo fundamento para uma vida sábia e piedosa.
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            <p>Estudo comparativo baseado na Teologia Reformada</p>
+        </footer>
+    </div>
+</body>
+</html>
