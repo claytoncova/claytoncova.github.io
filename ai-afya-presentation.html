@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Inteligente na Educação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #ffeef5 100%);
+            color: #333;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide h1 {
+            color: #d40054;
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(212, 0, 84, 0.3);
+        }
+
+        .slide h2 {
+            color: #d40054;
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #d40054;
+            padding-bottom: 10px;
+        }
+
+        .slide h3 {
+            color: #d40054;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            max-width: 1000px;
+        }
+
+        .slide ul {
+            text-align: left;
+            max-width: 800px;
+        }
+
+        .slide li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .slide li::before {
+            content: "▶";
+            color: #d40054;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #d40054;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 0, 84, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: #b8004a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 0, 84, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(212, 0, 84, 0.1);
+            color: #d40054;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            border: 2px solid #d40054;
+        }
+
+        .highlight-box {
+            background: rgba(212, 0, 84, 0.1);
+            border-left: 5px solid #d40054;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+            max-width: 1200px;
+        }
+
+        .tool-card {
+            background: white;
+            border: 2px solid #d40054;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(212, 0, 84, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+            max-width: 1000px;
+        }
+
+        .pros, .cons {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .pros {
+            border-left: 5px solid #4CAF50;
+        }
+
+        .cons {
+            border-left: 5px solid #f44336;
+        }
+
+        .prompt-example {
+            background: #f8f9fa;
+            border: 2px solid #d40054;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+
+        .research-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(212, 0, 84, 0.1);
+            border-left: 5px solid #d40054;
+            max-width: 900px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide.active {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / 25
+        </div>
+
+        <!-- Slide 1: Título -->
+        <div class="slide active">
+            <h1>🤖 Inteligência Artificial na Educação</h1>
+            <p class="subtitle">Uso Inteligente de IA para Estudantes de Graduação</p>
+            <div class="highlight-box">
+                <h3>Uma Jornada Através das Ferramentas e Estratégias Mais Eficazes</h3>
+                <p>Descubra como maximizar o potencial da IA em seus estudos, de forma ética e produtiva</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Introdução -->
+        <div class="slide">
+            <h2>🌟 A Nova Era da Aprendizagem</h2>
+            <div class="highlight-box">
+                <p>A Inteligência Artificial não é mais ficção científica - é uma realidade que está transformando a educação</p>
+            </div>
+            <ul>
+                <li>Assistentes virtuais que ajudam 24/7</li>
+                <li>Geração de conteúdo personalizado</li>
+                <li>Análise e síntese de informações complexas</li>
+                <li>Criação de materiais visuais e audiovisuais</li>
+                <li>Tutoria personalizada e adaptativa</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: O Que Veremos -->
+        <div class="slide">
+            <h2>📋 Agenda da Apresentação</h2>
+            <ul>
+                <li>🤖 Principais ferramentas de chat e IA</li>
+                <li>🎨 Ferramentas de geração de conteúdo visual</li>
+                <li>⚖️ Vantagens e desvantagens no uso acadêmico</li>
+                <li>🔬 Pesquisas científicas recentes</li>
+                <li>📝 Estratégias para criar prompts eficazes</li>
+                <li>💡 Exemplos práticos para ChatGPT, Claude e Gemini</li>
+                <li>🎯 Roteiro para uso responsável</li>
+            </ul>
+        </div>
+
+        <!-- Slide 4: ChatGPT -->
+        <div class="slide">
+            <h2>💬 ChatGPT - O Pioneiro</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>🚀 Características</h3>
+                    <ul>
+                        <li>Modelo GPT-4 e GPT-4 Turbo</li>
+                        <li>Interface conversacional intuitiva</li>
+                        <li>Suporte a múltiplos idiomas</li>
+                        <li>Capacidade de análise de imagens</li>
+                    </ul>
+                </div>
+                <div class="tool-card">
+                    <h3>🎯 Melhor Para</h3>
+                    <ul>
+                        <li>Redação e escrita criativa</li>
+                        <li>Explicações didáticas</li>
+                        <li>Brainstorming de ideias</li>
+                        <li>Análise de textos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Claude -->
+        <div class="slide">
+            <h2>🧠 Claude - O Analítico</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>⚡ Características</h3>
+                    <ul>
+                        <li>Respostas detalhadas e estruturadas</li>
+                        <li>Excelente para análise crítica</li>
+                        <li>Boa compreensão de contexto</li>
+                        <li>Foco em segurança e ética</li>
+                    </ul>
+                </div>
+                <div class="tool-card">
+                    <h3>🎯 Melhor Para</h3>
+                    <ul>
+                        <li>Pesquisa acadêmica</li>
+                        <li>Análise de dados complexos</li>
+                        <li>Revisão de textos</li>
+                        <li>Síntese de informações</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Gemini -->
+        <div class="slide">
+            <h2>🌟 Gemini - O Integrado</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>🔧 Características</h3>
+                    <ul>
+                        <li>Integração com Google Workspace</li>
+                        <li>Processamento multimodal</li>
+                        <li>Acesso a informações atualizadas</li>
+                        <li>Capacidades de programação</li>
+                    </ul>
+                </div>
+                <div class="tool-card">
+                    <h3>🎯 Melhor Para</h3>
+                    <ul>
+                        <li>Pesquisa em tempo real</li>
+                        <li>Trabalho colaborativo</li>
+                        <li>Projetos multidisciplinares</li>
+                        <li>Programação e dados</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Outras Ferramentas de Chat -->
+        <div class="slide">
+            <h2>🔧 Outras Ferramentas Importantes</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>🤖 Perplexity</h3>
+                    <p>IA focada em pesquisa com citações automáticas de fontes</p>
+                </div>
+                <div class="tool-card">
+                    <h3>🎯 Microsoft Copilot</h3>
+                    <p>Integrado ao Office 365, ideal para produtividade</p>
+                </div>
+                <div class="tool-card">
+                    <h3>📚 You.com</h3>
+                    <p>Motor de busca com IA integrada</p>
+                </div>
+                <div class="tool-card">
+                    <h3>🔬 Consensus</h3>
+                    <p>Especializado em pesquisa científica</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Ferramentas Especializadas -->
+        <div class="slide">
+            <h2>🎓 Ferramentas Educacionais Específicas</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>📝 Grammarly</h3>
+                    <p>Correção e melhoria de escrita com IA</p>
+                </div>
+                <div class="tool-card">
+                    <h3>🧮 Wolfram Alpha</h3>
+                    <p>Computação simbólica e matemática</p>
+                </div>
+                <div class="tool-card">
+                    <h3>📊 Notion AI</h3>
+                    <p>Organização e criação de conteúdo</p>
+                </div>
+                <div class="tool-card">
+                    <h3>🎯 Quillbot</h3>
+                    <p>Parafrasear e reescrever textos</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Geração de Imagens -->
+        <div class="slide">
+            <h2>🎨 Ferramentas de Geração de Imagens</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>🖼️ DALL-E 3</h3>
+                    <p>Criação de imagens realistas e artísticas a partir de texto</p>
+                </div>
+                <div class="tool-card">
+                    <h3>🎭 Midjourney</h3>
+                    <p>Imagens artísticas de alta qualidade</p>
+                </div>
+                <div class="tool-card">
+                    <h3>🚀 Stable Diffusion</h3>
+                    <p>Open source, altamente personalizável</p>
+                </div>
+                <div class="tool-card">
+                    <h3>🏢 Adobe Firefly</h3>
+                    <p>Integrado aos produtos Adobe</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Geração de Vídeos -->
+        <div class="slide">
+            <h2>🎬 Ferramentas de Geração de Vídeos</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>🎞️ Runway ML</h3>
+                    <p>Edição e geração de vídeos com IA</p>
+                </div>
+                <div class="tool-card">
+                    <h3>🎭 Synthesia</h3>
+                    <p>Criação de vídeos com avatares virtuais</p>
+                </div>
+                <div class="tool-card">
+                    <h3>📹 Luma AI</h3>
+                    <p>Geração de vídeos a partir de texto</p>
+                </div>
+                <div class="tool-card">
+                    <h3>🎨 Pika Labs</h3>
+                    <p>Animação e efeitos visuais</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Áudio e Música -->
+        <div class="slide">
+            <h2>🎵 Ferramentas de Áudio e Música</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>🎤 ElevenLabs</h3>
+                    <p>Síntese de voz ultra-realista</p>
+                </div>
+                <div class="tool-card">
+                    <h3>🎼 AIVA</h3>
+                    <p>Composição musical com IA</p>
+                </div>
+                <div class="tool-card">
+                    <h3>🔊 Murf AI</h3>
+                    <p>Narração profissional automatizada</p>
+                </div>
+                <div class="tool-card">
+                    <h3>🎹 Soundful</h3>
+                    <p>Trilhas sonoras livres de royalties</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Aplicações Educacionais -->
+        <div class="slide">
+            <h2>🎓 Aplicações no Contexto Educacional</h2>
+            <ul>
+                <li>📊 <strong>Apresentações:</strong> Criar slides visuais e infográficos</li>
+                <li>🎬 <strong>Vídeos Explicativos:</strong> Tutoriais e demonstrações</li>
+                <li>🎭 <strong>Storytelling:</strong> Narrativas visuais para projetos</li>
+                <li>📈 <strong>Visualização de Dados:</strong> Gráficos e diagramas</li>
+                <li>🎨 <strong>Arte Conceitual:</strong> Ilustrações para trabalhos</li>
+                <li>🗣️ <strong>Podcasts Educacionais:</strong> Narração automatizada</li>
+                <li>🎪 <strong>Simulações:</strong> Ambientes virtuais de aprendizagem</li>
+            </ul>
+        </div>
+
+        <!-- Slide 13: Vantagens -->
+        <div class="slide">
+            <h2>✅ Vantagens da IA nos Estudos</h2>
+            <div class="pros-cons">
+                <div class="pros">
+                    <h3>🚀 Produtividade</h3>
+                    <ul>
+                        <li>Aceleração na pesquisa</li>
+                        <li>Automatização de tarefas repetitivas</li>
+                        <li>Geração rápida de ideias</li>
+                    </ul>
+                </div>
+                <div class="pros">
+                    <h3>🎯 Personalização</h3>
+                    <ul>
+                        <li>Adaptação ao estilo de aprendizagem</li>
+                        <li>Feedback instantâneo</li>
+                        <li>Ritmo individualizado</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pros-cons">
+                <div class="pros">
+                    <h3>🌍 Acessibilidade</h3>
+                    <ul>
+                        <li>Disponibilidade 24/7</li>
+                        <li>Suporte multilíngue</li>
+                        <li>Democratização do conhecimento</li>
+                    </ul>
+                </div>
+                <div class="pros">
+                    <h3>💡 Criatividade</h3>
+                    <ul>
+                        <li>Novas perspectivas</li>
+                        <li>Combinações inéditas</li>
+                        <li>Inspiração para projetos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Desvantagens -->
+        <div class="slide">
+            <h2>⚠️ Desvantagens e Riscos</h2>
+            <div class="pros-cons">
+                <div class="cons">
+                    <h3>🧠 Dependência Cognitiva</h3>
+                    <ul>
+                        <li>Redução do pensamento crítico</li>
+                        <li>Atrofia de habilidades básicas</li>
+                        <li>Preguiça intelectual</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h3>❌ Qualidade do Conteúdo</h3>
+                    <ul>
+                        <li>Informações incorretas (alucinações)</li>
+                        <li>Falta de originalidade</li>
+                        <li>Plágio inadvertido</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pros-cons">
+                <div class="cons">
+                    <h3>⚖️ Questões Éticas</h3>
+                    <ul>
+                        <li>Violação de políticas acadêmicas</li>
+                        <li>Desonestidade intelectual</li>
+                        <li>Desigualdade de acesso</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h3>🔒 Privacidade</h3>
+                    <ul>
+                        <li>Exposição de dados pessoais</li>
+                        <li>Uso não autorizado de informações</li>
+                        <li>Falta de transparência</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Impactos no Aprendizado -->
+        <div class="slide">
+            <h2>📚 Impactos no Processo de Aprendizagem</h2>
+            <div class="highlight-box">
+                <h3>⚖️ O Dilema da Facilidade vs. Compreensão</h3>
+            </div>
+            <ul>
+                <li>🎯 <strong>Superficialidade:</strong> Respostas rápidas podem inibir o aprofundamento</li>
+                <li>🧩 <strong>Fragmentação:</strong> Conhecimento em pedaços isolados</li>
+                <li>🤔 <strong>Pensamento Crítico:</strong> Redução da capacidade de questionar</li>
+                <li>💪 <strong>Autonomia:</strong> Diminuição da independência intelectual</li>
+                <li>🔄 <strong>Metacognição:</strong> Menor consciência sobre o próprio aprendizado</li>
+                <li>📝 <strong>Escrita:</strong> Perda de habilidades de expressão pessoal</li>
+            </ul>
+        </div>
+
+        <!-- Slide 16: Diretrizes Éticas -->
+        <div class="slide">
+            <h2>🎯 Diretrizes para Uso Ético</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>✅ Faça</h3>
+                    <ul>
+                        <li>Use como ferramenta de apoio</li>
+                        <li>Cite e referencie quando apropriado</li>
+                        <li>Verifique informações</li>
+                        <li>Desenvolva pensamento próprio</li>
+                    </ul>
+                </div>
+                <div class="tool-card">
+                    <h3>❌ Não Faça</h3>
+                    <ul>
+                        <li>Copie respostas integralmente</li>
+                        <li>Substitua seu raciocínio</li>
+                        <li>Ignore políticas acadêmicas</li>
+                        <li>Dependa exclusivamente da IA</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Pesquisas Recentes - Parte 1 -->
+        <div class="slide">
+            <h2>🔬 Pesquisa Científica: Efeitos Cognitivos da IA</h2>
+            <div class="research-card">
+                <h3>🧠 "Your Brain on ChatGPT: Accumulation of Cognitive Debt" (2025)</h3>
+                <p><strong>MIT - Massachusetts Institute of Technology</strong></p>
+                <p><strong>Autores:</strong> Kosmyna, N. et al. | <strong>Publicação:</strong> arXiv:2506.08872</p>
+                
+                <div class="highlight-box">
+                    <h4>📊 Metodologia Científica</h4>
+                    <ul>
+                        <li><strong>54 participantes</strong> durante 4 meses de acompanhamento</li>
+                        <li><strong>Eletroencefalografia (EEG)</strong> para medir atividade cerebral</li>
+                        <li><strong>3 grupos experimentais:</strong> LLM, Mecanismo de Busca, Apenas Cérebro</li>
+                        <li><strong>Análise linguística</strong> por NLP e avaliação humana</li>
+                        <li><strong>4ª sessão:</strong> Troca de grupos para validação</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Pesquisas Recentes - Parte 2 -->
+        <div class="slide">
+            <h2>⚡ Resultados Neurológicos e Cognitivos</h2>
+            <div class="research-card">
+                <h3>🧠 Conectividade Cerebral por Grupo (EEG)</h3>
+                <ul>
+                    <li><strong>Grupo "Apenas Cérebro":</strong> Redes neurais mais fortes e distribuídas</li>
+                    <li><strong>Grupo "Mecanismo de Busca":</strong> Engajamento cognitivo moderado</li>
+                    <li><strong>Grupo "LLM/ChatGPT":</strong> Conectividade cerebral mais fraca</li>
+                    <li><strong>Padrão observado:</strong> Atividade cognitiva diminui com uso de ferramentas externas</li>
+                </ul>
+            </div>
+            
+            <div class="research-card">
+                <h3>📉 Impactos Comportamentais Documentados</h3>
+                <ul>
+                    <li><strong>Senso de Propriedade:</strong> Menor no grupo LLM, maior no grupo "Apenas Cérebro"</li>
+                    <li><strong>Memória de Trabalho:</strong> Usuários LLM tiveram dificuldade para citar seus próprios textos</li>
+                    <li><strong>Conectividade Alpha/Beta:</strong> Reduzida em usuários que mudaram de LLM para "Apenas Cérebro"</li>
+                    <li><strong>Sub-engajamento:</strong> Evidenciado nas regiões occipito-parietais e pré-frontais</li>
+                </ul>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>⚠️ Conceito de "Débito Cognitivo"</h3>
+                <p>Usuários de LLM apresentaram desempenho consistentemente inferior nos níveis neural, linguístico e comportamental ao longo de 4 meses</p>
+            </div>
+        </div>
+
+        <!-- Slide 19: Benefícios Comprovados -->
+        <div class="slide">
+            <h2">✨ Benefícios Comprovados pela Pesquisa</h2>
+            <div class="research-card">
+                <h3>🎓 "Enhancing Learning with AI Tools" (Educational Psychology Review, 2024)</h3>
+                <ul>
+                    <li><strong>Feedback Instantâneo:</strong> 40% de melhoria na correção de erros</li>
+                    <li><strong>Personalização:</strong> 28% de aumento no engajamento</li>
+                    <li><strong>Acessibilidade:</strong> 52% de melhoria para estudantes com necessidades especiais</li>
+                    <li><strong>Eficiência:</strong> 35% de redução no tempo de pesquisa básica</li>
+                </ul>
+            </div>
+            <div class="highlight-box">
+                <h3>💡 A Chave do Sucesso</h3>
+                <p>Uso estratégico e consciente, sempre complementando - nunca substituindo - o desenvolvimento intelectual próprio</p>
+            </div>
+        </div>
+
+        <!-- Slide 20: Fundamentos dos Prompts -->
+        <div class="slide">
+            <h2>📝 Roteiro para Prompts Eficazes</h2>
+            <div class="highlight-box">
+                <h3>🏗️ Estrutura CLARA (Contexto-Limitação-Ação-Resultado-Avaliação)</h3>
+            </div>
+            <ul>
+                <li>🎯 <strong>Contexto:</strong> Estabeleça o cenário e seu papel</li>
+                <li>⚡ <strong>Limitação:</strong> Defina restrições e parâmetros</li>
+                <li>🚀 <strong>Ação:</strong> Especifique exatamente o que quer</li>
+                <li>📊 <strong>Resultado:</strong> Descreva o formato esperado</li>
+                <li>✅ <strong>Avaliação:</strong> Estabeleça critérios de qualidade</li>
+            </ul>
+            <div class="highlight-box">
+                <p><strong>Dica Dourada:</strong> Seja específico, dê exemplos e itere baseado nos resultados!</p>
+            </div>
+        </div>
+
+        <!-- Slide 21: Prompts para ChatGPT -->
+        <div class="slide">
+            <h2>🤖 Prompts Eficazes para ChatGPT</h2>
+            <div class="prompt-example">
+<strong>📚 Para Resumos Acadêmicos:</strong>
+"Atue como um especialista em [sua área]. Analise o texto abaixo e crie um resumo estruturado de 300 palavras que inclua: 1) Problema central, 2) Metodologia, 3) Principais descobertas, 4) Limitações, 5) Implicações práticas. Use linguagem acadêmica mas acessível."
+            </div>
+            <div class="prompt-example">
+<strong>💡 Para Brainstorming:</strong>
+"Preciso de 10 ideias criativas para [projeto/tema]. Cada ideia deve: ter viabilidade prática, ser inovadora, incluir uma justificativa de 2 linhas. Ordene por originalidade. Contexto: sou estudante de [curso] no [semestre]."
+            </div>
+        </div>
+
+        <!-- Slide 22: Prompts para Claude -->
+        <div class="slide">
+            <h2>🧠 Prompts Eficazes para Claude</h2>
+            <div class="prompt-example">
+<strong>🔍 Para Análise Crítica:</strong>
+"Analise criticamente este argumento: [texto/teoria]. Identifique: 1) Premissas principais, 2) Evidências apresentadas, 3) Lacunas lógicas, 4) Vieses potenciais, 5) Contra-argumentos válidos. Mantenha objetividade acadêmica e cite exemplos específicos."
+            </div>
+            <div class="prompt-example">
+<strong>📖 Para Revisão de Textos:</strong>
+"Revise este texto acadêmico focando em: clareza argumentativa, coesão entre parágrafos, precisão conceitual, adequação ao registro acadêmico. Sugira melhorias específicas sem alterar minha voz autoral. Indique pontos fortes e fracos."
+            </div>
+        </div>
+
+        <!-- Slide 23: Prompts para Gemini -->
+        <div class="slide">
+            <h2>🌟 Prompts Eficazes para Gemini</h2>
+            <div class="prompt-example">
+<strong>🔎 Para Pesquisa Atualizada:</strong>
+"Pesquise informações recentes (últimos 2 anos) sobre [tema]. Organize em: 1) Tendências atuais, 2) Debates em andamento, 3) Pesquisas mais citadas, 4) Lacunas no conhecimento. Inclua fontes acadêmicas e dados estatísticos quando disponíveis."
+            </div>
+            <div class="prompt-example">
+<strong>📊 Para Análise de Dados:</strong>
+"Analise estes dados [anexar planilha] e crie: 1) Estatísticas descritivas, 2) Visualizações apropriadas, 3) Padrões identificados, 4) Correlações significativas, 5) Interpretação dos resultados. Use métodos estatísticos adequados para [tipo de dados]."
+            </div>
+        </div>
+
+        <!-- Slide 24: Estratégias Avançadas -->
+        <div class="slide">
+            <h2>🚀 Estratégias Avançadas de Prompting</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>🎭 Role Playing</h3>
+                    <p>"Atue como um [especialista/profissional] com [experiência específica]..."</p>
+                </div>
+                <div class="tool-card">
+                    <h3>🔗 Chain of Thought</h3>
+                    <p>"Explique seu raciocínio passo a passo antes de dar a resposta final..."</p>
+                </div>
+                <div class="tool-card">
+                    <h3>📝 Few-Shot Learning</h3>
+                    <p>Forneça 2-3 exemplos do formato desejado antes de sua solicitação</p>
+                </div>
+                <div class="tool-card">
+                    <h3>🎯 Constrainted Generation</h3>
+                    <p>Estabeleça limites claros: tamanho, estilo, formato, público-alvo</p>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h3>💡 Dica Avançada: Prompts Iterativos</h3>
+                <p>Comece amplo, depois refine. Use "Com base na resposta anterior, agora..." para aprofundar</p>
+            </div>
+        </div>
+
+        <!-- Slide 25: Conclusões e Próximos Passos -->
+        <div class="slide">
+            <h2>🎯 Conclusões e Próximos Passos</h2>
+            <div class="highlight-box">
+                <h3>🌟 A IA é uma Ferramenta, Não uma Substituta</h3>
+                <p>O objetivo é potencializar sua capacidade intelectual, não substituí-la</p>
+            </div>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>✅ Ações Recomendadas</h3>
+                    <ul>
+                        <li>Experimente diferentes ferramentas</li>
+                        <li>Desenvolva uma biblioteca de prompts</li>
+                        <li>Mantenha sempre o senso crítico</li>
+                        <li>Respeite diretrizes éticas</li>
+                    </ul>
+                </div>
+                <div class="tool-card">
+                    <h3>🎓 Para o Futuro</h3>
+                    <ul>
+                        <li>IA integrada aos currículos</li>
+                        <li>Novas competências digitais</li>
+                        <li>Educação híbrida</li>
+                        <li>Aprendizagem personalizada</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <p><strong>Lembre-se:</strong> A verdadeira inteligência está em saber quando e como usar essas ferramentas</p>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ Anterior</button>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Próximo ▶</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                event.preventDefault();
+                changeSlide(1);
+            } else if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                changeSlide(-1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
