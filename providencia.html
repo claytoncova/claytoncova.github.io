@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Providência de Deus - Meios Ordinários e Extraordinários</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c9a227;
+            --gold-light: #e8d48b;
+            --gold-dark: #8b6914;
+            --navy: #0a1628;
+            --navy-light: #162840;
+            --cream: #f5f0e6;
+            --burgundy: #5c1a1b;
+            --text-light: #e8e4dc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background: var(--navy);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .slide {
+            min-height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background patterns */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(201, 162, 39, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(201, 162, 39, 0.05) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            width: 100%;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Title Slide */
+        .slide-title {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, var(--navy) 100%);
+        }
+
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            text-align: center;
+            color: var(--gold);
+            text-shadow: 0 4px 30px rgba(201, 162, 39, 0.3);
+            margin-bottom: 30px;
+            letter-spacing: 0.1em;
+        }
+
+        .subtitle {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            text-align: center;
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 50px;
+            opacity: 0.9;
+        }
+
+        .verse-highlight {
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.15) 0%, rgba(201, 162, 39, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 30px 40px;
+            margin: 30px 0;
+            border-radius: 0 12px 12px 0;
+            position: relative;
+        }
+
+        .verse-highlight::before {
+            content: '"';
+            font-family: 'Cinzel', serif;
+            font-size: 6rem;
+            color: var(--gold);
+            opacity: 0.2;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+        }
+
+        .verse-text {
+            font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--cream);
+        }
+
+        .verse-reference {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            margin-top: 15px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        /* Section Headers */
+        .section-header {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 25px;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        /* Cards for examples */
+        .example-card {
+            background: linear-gradient(145deg, rgba(22, 40, 64, 0.8) 0%, rgba(10, 22, 40, 0.9) 100%);
+            border: 1px solid rgba(201, 162, 39, 0.2);
+            border-radius: 16px;
+            padding: 35px 40px;
+            margin: 25px 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .example-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(201, 162, 39, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .example-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .example-title .icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .example-text {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--text-light);
+            opacity: 0.95;
+        }
+
+        .bible-ref {
+            display: inline-block;
+            background: rgba(201, 162, 39, 0.15);
+            color: var(--gold);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            letter-spacing: 0.05em;
+        }
+
+        /* Two column layout */
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .two-columns {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Definition boxes */
+        .definition-box {
+            background: linear-gradient(135deg, rgba(92, 26, 27, 0.3) 0%, rgba(10, 22, 40, 0.9) 100%);
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 45px;
+            text-align: center;
+            position: relative;
+        }
+
+        .definition-box.gold-theme {
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.15) 0%, rgba(10, 22, 40, 0.95) 100%);
+        }
+
+        .definition-type {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            color: var(--gold);
+            margin-bottom: 25px;
+            letter-spacing: 0.1em;
+        }
+
+        .definition-text {
+            font-size: 1.25rem;
+            line-height: 1.9;
+            color: var(--cream);
+        }
+
+        /* Quote block */
+        .quote-block {
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.1) 0%, transparent 100%);
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            border-radius: 16px;
+            padding: 40px 50px;
+            margin: 40px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .quote-block .quote-text {
+            font-size: 1.4rem;
+            font-style: italic;
+            line-height: 1.9;
+            color: var(--cream);
+            margin-bottom: 20px;
+        }
+
+        .quote-block .quote-source {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+        }
+
+        /* List styling */
+        .styled-list {
+            list-style: none;
+            margin: 25px 0;
+        }
+
+        .styled-list li {
+            padding: 15px 0 15px 50px;
+            position: relative;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.1);
+        }
+
+        .styled-list li::before {
+            content: '✦';
+            position: absolute;
+            left: 10px;
+            color: var(--gold);
+            font-size: 1rem;
+        }
+
+        /* Slide number */
+        .slide-number {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            opacity: 0.5;
+            letter-spacing: 0.1em;
+        }
+
+        /* Decorative elements */
+        .decorative-cross {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .decorative-cross::before,
+        .decorative-cross::after {
+            content: '';
+            position: absolute;
+            background: var(--gold);
+        }
+
+        .decorative-cross::before {
+            width: 3px;
+            height: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .decorative-cross::after {
+            width: 40px;
+            height: 3px;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .divider {
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 40px auto;
+        }
+
+        /* Table styling */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        .comparison-table th {
+            font-family: 'Cinzel', serif;
+            background: rgba(201, 162, 39, 0.2);
+            color: var(--gold);
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .comparison-table td {
+            padding: 20px;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.15);
+            font-size: 1.1rem;
+        }
+
+        .comparison-table tr:hover td {
+            background: rgba(201, 162, 39, 0.05);
+        }
+
+        /* Intro text */
+        .intro-text {
+            font-size: 1.3rem;
+            line-height: 2;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            color: var(--cream);
+        }
+
+        /* Emphasis */
+        .gold-text {
+            color: var(--gold);
+        }
+
+        .highlight {
+            background: linear-gradient(to bottom, transparent 60%, rgba(201, 162, 39, 0.3) 60%);
+        }
+
+        /* Navigation dots */
+        .nav-dots {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(201, 162, 39, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot:hover,
+        .nav-dot.active {
+            background: var(--gold);
+            transform: scale(1.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 30px;
+            }
+            
+            .nav-dots {
+                display: none;
+            }
+            
+            .example-card {
+                padding: 25px;
+            }
+            
+            .verse-highlight {
+                padding: 25px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .slide {
+                page-break-after: always;
+                min-height: 100vh;
+            }
+            
+            .nav-dots {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation dots -->
+    <nav class="nav-dots" aria-label="Navegação de slides">
+        <span class="nav-dot active" data-slide="1"></span>
+        <span class="nav-dot" data-slide="2"></span>
+        <span class="nav-dot" data-slide="3"></span>
+        <span class="nav-dot" data-slide="4"></span>
+        <span class="nav-dot" data-slide="5"></span>
+        <span class="nav-dot" data-slide="6"></span>
+        <span class="nav-dot" data-slide="7"></span>
+        <span class="nav-dot" data-slide="8"></span>
+        <span class="nav-dot" data-slide="9"></span>
+        <span class="nav-dot" data-slide="10"></span>
+        <span class="nav-dot" data-slide="11"></span>
+        <span class="nav-dot" data-slide="12"></span>
+        <span class="nav-dot" data-slide="13"></span>
+        <span class="nav-dot" data-slide="14"></span>
+        <span class="nav-dot" data-slide="15"></span>
+        <span class="nav-dot" data-slide="16"></span>
+    </nav>
+
+    <!-- Slide 1: Título -->
+    <section class="slide slide-title" id="slide-1">
+        <div class="content">
+            <div class="decorative-cross"></div>
+            <h1 class="main-title">A Providência de Deus</h1>
+            <p class="subtitle">Meios Ordinários e Extraordinários para o Bem da Igreja</p>
+            
+            <div class="verse-highlight">
+                <p class="verse-text">
+                    "Saberá toda esta congregação que o Senhor salva, não com espada, nem com lança; 
+                    porque do Senhor é a batalha, e ele vos entregará nas nossas mãos."
+                </p>
+                <p class="verse-reference">1 Samuel 17:47</p>
+            </div>
+        </div>
+        <span class="slide-number">01 / 16</span>
+    </section>
+
+    <!-- Slide 2: Introdução -->
+    <section class="slide" id="slide-2">
+        <div class="content">
+            <h2 class="section-header">A Soberania de Deus na História</h2>
+            
+            <p class="intro-text">
+                A Bíblia contém inúmeros relatos de intervenções divinas no contexto de batalhas, 
+                variando desde <span class="gold-text">manifestações sobrenaturais explícitas</span> até 
+                o <span class="gold-text">uso estratégico de elementos da criação</span>.
+            </p>
+            
+            <div class="divider"></div>
+            
+            <p class="intro-text">
+                Deus demonstra Sua soberania absoluta sobre todas as coisas: sobre a natureza, 
+                sobre as nações e sobre o coração dos reis. Nada escapa ao Seu controle perfeito, 
+                e todas as Suas obras convergem para o <span class="highlight">bem da Sua Igreja</span> 
+                e para a <span class="highlight">Sua própria glória</span>.
+            </p>
+        </div>
+        <span class="slide-number">02 / 16</span>
+    </section>
+
+    <!-- Slide 3: Dois Tipos de Intervenção -->
+    <section class="slide" id="slide-3">
+        <div class="content">
+            <h2 class="section-header">Dois Modos de Agir Divino</h2>
+            
+            <div class="two-columns">
+                <div class="definition-box">
+                    <h3 class="definition-type">Intervenção Extraordinária</h3>
+                    <p class="definition-text">
+                        Deus age <strong>"acima ou contra"</strong> os meios normais, 
+                        suspendendo as leis da física ou enviando mensageiros celestiais.
+                    </p>
+                    <div class="divider"></div>
+                    <p class="definition-text" style="font-size: 1rem; opacity: 0.8;">
+                        Objetivo: Autenticar a revelação e demonstrar poder absoluto.
+                    </p>
+                </div>
+                
+                <div class="definition-box gold-theme">
+                    <h3 class="definition-type">Intervenção Ordinária</h3>
+                    <p class="definition-text">
+                        Deus age <strong>através</strong> das ferramentas que Ele mesmo criou: 
+                        clima, geografia, política e decisões humanas.
+                    </p>
+                    <div class="divider"></div>
+                    <p class="definition-text" style="font-size: 1rem; opacity: 0.8;">
+                        Objetivo: Demonstrar fidelidade constante e soberania sobre a história.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">03 / 16</span>
+    </section>
+
+    <!-- Slide 4: Intervenção Extraordinária - Definição -->
+    <section class="slide" id="slide-4">
+        <div class="content">
+            <h2 class="section-header">Intervenção Direta: Sobrenatural</h2>
+            
+            <div class="quote-block">
+                <p class="quote-text">
+                    Nestas passagens, Deus manifesta Seu poder de forma milagrosa, 
+                    muitas vezes suspendendo as leis da física ou enviando 
+                    mensageiros celestiais para combater pelo povo.
+                </p>
+            </div>
+            
+            <p class="intro-text">
+                Estas intervenções ocorrem geralmente em <span class="gold-text">momentos de transição</span> 
+                na História da Redenção, para autenticar um profeta ou um novo pacto. 
+                O milagre serve para <span class="highlight">"selar" a autoridade da mensagem</span> divina.
+            </p>
+            
+            <div class="divider"></div>
+            
+            <p class="intro-text" style="font-size: 1.1rem; opacity: 0.8;">
+                O Anjo do Senhor, cavalos de fogo, o sol que para — todos demonstram que 
+                nada é impossível para o Deus de Israel.
+            </p>
+        </div>
+        <span class="slide-number">04 / 16</span>
+    </section>
+
+    <!-- Slide 5: Queda de Jericó -->
+    <section class="slide" id="slide-5">
+        <div class="content">
+            <h2 class="section-header">A Queda de Jericó</h2>
+            
+            <div class="example-card">
+                <h3 class="example-title">
+                    <span class="icon">🏰</span>
+                    As Muralhas Caem sem Armas de Cerco
+                </h3>
+                <p class="example-text">
+                    Após o povo rodear a cidade e os sacerdotes tocarem as trombetas, 
+                    as muralhas caíram por <strong>intervenção divina direta</strong>, 
+                    sem o uso de qualquer arma de cerco convencional.
+                </p>
+                <span class="bible-ref">Josué 6:1-20</span>
+            </div>
+            
+            <div class="verse-highlight">
+                <p class="verse-text">
+                    A vitória não veio pela força militar de Israel, mas pela obediência 
+                    ao comando de Deus e pela Sua ação sobrenatural. O povo apenas marchou 
+                    e gritou — Deus fez o impossível.
+                </p>
+            </div>
+            
+            <p class="intro-text" style="font-size: 1.1rem;">
+                <span class="gold-text">Lição:</span> A batalha pertence ao Senhor, 
+                e Ele não precisa de nossos recursos para vencer.
+            </p>
+        </div>
+        <span class="slide-number">05 / 16</span>
+    </section>
+
+    <!-- Slide 6: O Sol se Detém -->
+    <section class="slide" id="slide-6">
+        <div class="content">
+            <h2 class="section-header">O Sol se Detém</h2>
+            
+            <div class="example-card">
+                <h3 class="example-title">
+                    <span class="icon">☀️</span>
+                    Um Dia Como Nenhum Outro
+                </h3>
+                <p class="example-text">
+                    Durante a batalha contra os amorreus, Deus fez com que o sol e a lua 
+                    parassem para que Israel pudesse completar a vitória. 
+                    <strong>As próprias leis do cosmos se curvaram</strong> ao comando divino.
+                </p>
+                <span class="bible-ref">Josué 10:12-14</span>
+            </div>
+            
+            <div class="verse-highlight">
+                <p class="verse-text">
+                    "Nunca antes nem depois houve um dia como aquele, em que o Senhor 
+                    atendeu à voz de um homem; pois o Senhor pelejava por Israel."
+                </p>
+                <p class="verse-reference">Josué 10:14</p>
+            </div>
+            
+            <p class="intro-text" style="font-size: 1.1rem;">
+                <span class="gold-text">Lição:</span> Deus é Senhor do tempo e da criação, 
+                e usa todas as coisas para cumprir Seus propósitos.
+            </p>
+        </div>
+        <span class="slide-number">06 / 16</span>
+    </section>
+
+    <!-- Slide 7: O Anjo contra os Assírios -->
+    <section class="slide" id="slide-7">
+        <div class="content">
+            <h2 class="section-header">O Anjo contra os Assírios</h2>
+            
+            <div class="example-card">
+                <h3 class="example-title">
+                    <span class="icon">⚔️</span>
+                    185 Mil em Uma Única Noite
+                </h3>
+                <p class="example-text">
+                    Quando Senaqueribe cercou Jerusalém, o "Anjo do Senhor" saiu e matou 
+                    <strong>185 mil soldados assírios em uma única noite</strong>, 
+                    forçando a retirada do rei inimigo. Nenhuma espada israelita foi levantada.
+                </p>
+                <span class="bible-ref">2 Reis 19:35 / 2 Crônicas 32:21</span>
+            </div>
+            
+            <div class="example-card">
+                <h3 class="example-title">
+                    <span class="icon">🔥</span>
+                    Cavalos e Carruagens de Fogo
+                </h3>
+                <p class="example-text">
+                    O profeta Eliseu pediu que Deus abrisse os olhos de seu servo, que então 
+                    viu o <strong>exército espiritual</strong> cercando os arameus. 
+                    Logo após, Deus feriu os inimigos com cegueira.
+                </p>
+                <span class="bible-ref">2 Reis 6:15-17</span>
+            </div>
+        </div>
+        <span class="slide-number">07 / 16</span>
+    </section>
+
+    <!-- Slide 8: Gideão -->
+    <section class="slide" id="slide-8">
+        <div class="content">
+            <h2 class="section-header">Gideão e o Pânico dos Midianitas</h2>
+            
+            <div class="example-card">
+                <h3 class="example-title">
+                    <span class="icon">🎺</span>
+                    Vitória com Apenas 300 Homens
+                </h3>
+                <p class="example-text">
+                    Embora os 300 homens estivessem presentes, o texto revela que foi 
+                    <strong>o Senhor quem fez</strong> que os homens de todo o acampamento 
+                    inimigo se voltassem uns contra os outros com suas espadas.
+                </p>
+                <span class="bible-ref">Juízes 7:19-22</span>
+            </div>
+            
+            <div class="verse-highlight">
+                <p class="verse-text">
+                    "O Senhor fez que os homens de todo o acampamento se voltassem 
+                    uns contra os outros com suas espadas."
+                </p>
+                <p class="verse-reference">Juízes 7:22</p>
+            </div>
+            
+            <p class="intro-text" style="font-size: 1.1rem;">
+                <span class="gold-text">Princípio da Fraqueza:</span> Deus reduziu o exército 
+                para que a vitória não fosse atribuída à força humana, mas somente a Ele.
+            </p>
+        </div>
+        <span class="slide-number">08 / 16</span>
+    </section>
+
+    <!-- Slide 9: Intervenção Ordinária - Definição -->
+    <section class="slide" id="slide-9">
+        <div class="content">
+            <h2 class="section-header">Intervenção Ordinária: Providência</h2>
+            
+            <div class="quote-block">
+                <p class="quote-text">
+                    Nestas ocasiões, Deus age como o "Senhor da História", manipulando 
+                    eventos climáticos, geográficos ou políticos para garantir o resultado 
+                    desejado, sem necessariamente romper a ordem natural de forma visível.
+                </p>
+            </div>
+            
+            <p class="intro-text">
+                Deus usa as <span class="gold-text">ferramentas que Ele mesmo criou</span>: 
+                o vento, a chuva, as decisões humanas, a política das nações. Isso demonstra que 
+                Deus é <span class="highlight">Senhor do dia a dia e da natureza</span>, 
+                não apenas de eventos "mágicos".
+            </p>
+            
+            <div class="divider"></div>
+            
+            <p class="intro-text" style="font-size: 1.1rem; opacity: 0.8;">
+                Na providência ordinária, Deus permanece igualmente soberano — 
+                apenas escolhe meios diferentes para manifestar Seu controle.
+            </p>
+        </div>
+        <span class="slide-number">09 / 16</span>
+    </section>
+
+    <!-- Slide 10: Travessia do Mar Vermelho -->
+    <section class="slide" id="slide-10">
+        <div class="content">
+            <h2 class="section-header">A Travessia do Mar Vermelho</h2>
+            
+            <div class="example-card">
+                <h3 class="example-title">
+                    <span class="icon">🌊</span>
+                    O Vento Oriental
+                </h3>
+                <p class="example-text">
+                    Embora o mar tenha se aberto miraculosamente, a NVI destaca o 
+                    <strong>meio utilizado</strong> por Deus para realizar esta obra:
+                </p>
+                <span class="bible-ref">Êxodo 14:21</span>
+            </div>
+            
+            <div class="verse-highlight">
+                <p class="verse-text">
+                    "O Senhor, por meio de um forte vento oriental que soprou toda 
+                    aquela noite, afastou o mar e o tornou em terra seca."
+                </p>
+                <p class="verse-reference">Êxodo 14:21</p>
+            </div>
+            
+            <p class="intro-text" style="font-size: 1.1rem;">
+                <span class="gold-text">Lição:</span> Mesmo nos maiores milagres, 
+                Deus frequentemente usa elementos naturais — demonstrando que 
+                <strong>toda a criação está a Seu serviço</strong>.
+            </p>
+        </div>
+        <span class="slide-number">10 / 16</span>
+    </section>
+
+    <!-- Slide 11: Chuva de Pedras e Torrente -->
+    <section class="slide" id="slide-11">
+        <div class="content">
+            <h2 class="section-header">A Natureza Como Exército de Deus</h2>
+            
+            <div class="two-columns">
+                <div class="example-card">
+                    <h3 class="example-title">
+                        <span class="icon">🪨</span>
+                        A Chuva de Pedras
+                    </h3>
+                    <p class="example-text">
+                        Na perseguição aos amorreus, o Senhor lançou do céu grandes 
+                        pedras de granizo, matando <strong>mais soldados do que 
+                        a própria espada dos israelitas</strong>.
+                    </p>
+                    <span class="bible-ref">Josué 10:11</span>
+                </div>
+                
+                <div class="example-card">
+                    <h3 class="example-title">
+                        <span class="icon">💧</span>
+                        A Torrente de Quisom
+                    </h3>
+                    <p class="example-text">
+                        No cântico de Débora, revela-se que na batalha contra Sísera, 
+                        <strong>as estrelas e a natureza lutaram</strong>. Uma inundação 
+                        repentina atolou os carros de ferro inimigos.
+                    </p>
+                    <span class="bible-ref">Juízes 5:20-21</span>
+                </div>
+            </div>
+            
+            <p class="intro-text" style="font-size: 1.1rem; margin-top: 30px;">
+                <span class="gold-text">Princípio:</span> Ao usar o granizo ou os ventos, 
+                Deus mostra que <strong>toda a criação é Seu exército pessoal</strong>.
+            </p>
+        </div>
+        <span class="slide-number">11 / 16</span>
+    </section>
+
+    <!-- Slide 12: Som nas Amoreiras e Vespas -->
+    <section class="slide" id="slide-12">
+        <div class="content">
+            <h2 class="section-header">Sinais Providenciais</h2>
+            
+            <div class="example-card">
+                <h3 class="example-title">
+                    <span class="icon">🌳</span>
+                    O Som de Passos nas Amoreiras
+                </h3>
+                <p class="example-text">
+                    Deus instruiu Davi a esperar pelo som de marcha no topo das amoreiras. 
+                    Esse fenômeno natural (vento ou movimento) foi o <strong>sinal providencial</strong> 
+                    de que Deus estava conduzindo a vitória sobre os filisteus.
+                </p>
+                <span class="bible-ref">2 Samuel 5:22-25</span>
+            </div>
+            
+            <div class="example-card">
+                <h3 class="example-title">
+                    <span class="icon">🐝</span>
+                    O Envio de Vespas
+                </h3>
+                <p class="example-text">
+                    Deus afirma ter enviado "vespas" (ou insetos que causavam pânico) 
+                    à frente de Israel para expulsar as nações cananéias 
+                    <strong>sem que o povo precisasse lutar em todas as frentes</strong>.
+                </p>
+                <span class="bible-ref">Êxodo 23:28 / Josué 24:12</span>
+            </div>
+        </div>
+        <span class="slide-number">12 / 16</span>
+    </section>
+
+    <!-- Slide 13: Causas Primárias e Secundárias -->
+    <section class="slide" id="slide-13">
+        <div class="content">
+            <h2 class="section-header">Causas Primárias e Secundárias</h2>
+            
+            <p class="intro-text" style="margin-bottom: 40px;">
+                Sob a ótica da <span class="gold-text">Teologia Reformada</span>, 
+                a variação entre métodos de intervenção não é uma mudança de "estratégia" 
+                de Deus, mas uma expressão da Sua <span class="highlight">Providência perfeita</span>.
+            </p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Conceito</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong class="gold-text">Causa Primária</strong></td>
+                        <td>Deus é a Causa Primária de tudo o que acontece no universo.</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="gold-text">Causas Secundárias</strong></td>
+                        <td>Leis da natureza, decisões humanas, clima, política — instrumentos que Deus usa.</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="gold-text">Meio Ordinário</strong></td>
+                        <td>Deus age através das causas secundárias que Ele mesmo criou.</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="gold-text">Meio Extraordinário</strong></td>
+                        <td>Deus age acima, sem ou contra as causas secundárias (milagres).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <span class="slide-number">13 / 16</span>
+    </section>
+
+    <!-- Slide 14: Por que a mudança de métodos? -->
+    <section class="slide" id="slide-14">
+        <div class="content">
+            <h2 class="section-header">Por Que Deus Varia Seus Métodos?</h2>
+            
+            <div class="example-card">
+                <h3 class="example-title">
+                    <span class="icon">A</span>
+                    Autenticação da Revelação
+                </h3>
+                <p class="example-text">
+                    Intervenções diretas e milagrosas são mais frequentes em períodos onde 
+                    Deus está <strong>revelando novas partes da Sua Palavra</strong> 
+                    (Êxodo com Moisés, conquista de Canaã com Josué). O milagre serve para 
+                    "selar" a autoridade da mensagem.
+                </p>
+            </div>
+            
+            <div class="example-card">
+                <h3 class="example-title">
+                    <span class="icon">B</span>
+                    O Princípio da Glória de Deus
+                </h3>
+                <p class="example-text">
+                    Deus escolhe métodos que melhor demonstrem Sua soberania em cada contexto: 
+                    <strong>pela fraqueza</strong> (Gideão) ou <strong>pela natureza</strong> 
+                    (granizo, ventos). Em ambos, o objetivo é o mesmo: <em>Soli Deo Gloria</em>.
+                </p>
+            </div>
+            
+            <div class="example-card">
+                <h3 class="example-title">
+                    <span class="icon">C</span>
+                    Cuidado com a Igreja
+                </h3>
+                <p class="example-text">
+                    A Providência Reformada ensina que Deus governa todas as coisas 
+                    <strong>"para o bem da Sua Igreja"</strong>. Às vezes, um método ordinário 
+                    (como a decisão de um rei pagão como Ciro) é o mais eficaz a longo prazo.
+                </p>
+                <span class="bible-ref">Provérbios 21:1</span>
+            </div>
+        </div>
+        <span class="slide-number">14 / 16</span>
+    </section>
+
+    <!-- Slide 15: Resumo Teológico -->
+    <section class="slide" id="slide-15">
+        <div class="content">
+            <h2 class="section-header">Soli Deo Gloria</h2>
+            
+            <p class="intro-text" style="margin-bottom: 40px;">
+                Tanto nos meios extraordinários quanto nos ordinários, 
+                o objetivo final é sempre o mesmo: a <span class="gold-text">Glória de Deus</span> 
+                e o <span class="gold-text">bem do Seu povo</span>.
+            </p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Tipo de Intervenção</th>
+                        <th>Visão Reformada</th>
+                        <th>Objetivo Principal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Extraordinária</strong></td>
+                        <td>Deus age sem ou contra os meios naturais</td>
+                        <td>Autenticar a revelação e demonstrar poder absoluto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ordinária</strong></td>
+                        <td>Deus guia e sustenta através das leis naturais</td>
+                        <td>Demonstrar fidelidade constante e soberania sobre a história</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="divider"></div>
+            
+            <p class="intro-text" style="font-size: 1.15rem;">
+                Uma vez que a revelação avança ou se estabelece, Deus frequentemente retorna 
+                ao uso dos meios ordinários para que Seu povo aprenda a 
+                <span class="highlight">viver pela fé na Sua Palavra</span> 
+                e não apenas na visão do sinal.
+            </p>
+        </div>
+        <span class="slide-number">15 / 16</span>
+    </section>
+
+    <!-- Slide 16: Conclusão -->
+    <section class="slide" id="slide-16">
+        <div class="content">
+            <div class="decorative-cross"></div>
+            <h2 class="section-header">Confie na Providência</h2>
+            
+            <div class="quote-block">
+                <p class="quote-text">
+                    "Deus, em sua providência ordinária, faz uso de meios; todavia, 
+                    Ele é livre para operar sem eles, acima deles e contra eles, 
+                    segundo o seu arbítrio."
+                </p>
+                <p class="quote-source">Confissão de Fé de Westminster, Cap. V, III</p>
+            </div>
+            
+            <div class="verse-highlight">
+                <p class="verse-text">
+                    "Saberá toda esta congregação que o Senhor salva, não com espada, 
+                    nem com lança; porque do Senhor é a batalha, e ele vos entregará 
+                    nas nossas mãos."
+                </p>
+                <p class="verse-reference">1 Samuel 17:47</p>
+            </div>
+            
+            <p class="intro-text" style="margin-top: 30px;">
+                Quer Deus aja de forma <strong>miraculosa</strong> ou através dos 
+                <strong>meios ordinários</strong>, Seus filhos podem descansar na certeza de que 
+                <span class="gold-text">Ele governa todas as coisas para o nosso bem</span> 
+                e para a <span class="gold-text">Sua eterna glória</span>.
+            </p>
+            
+            <div class="divider"></div>
+            
+            <p class="intro-text" style="font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--gold);">
+                Soli Deo Gloria
+            </p>
+        </div>
+        <span class="slide-number">16 / 16</span>
+    </section>
+
+    <script>
+        // Navigation dots functionality
+        const dots = document.querySelectorAll('.nav-dot');
+        const slides = document.querySelectorAll('.slide');
+
+        // Click navigation
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const slideNum = dot.getAttribute('data-slide');
+                document.getElementById(`slide-${slideNum}`).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Update active dot on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const slideId = entry.target.id;
+                    const slideNum = slideId.replace('slide-', '');
+                    
+                    dots.forEach(dot => {
+                        dot.classList.remove('active');
+                        if (dot.getAttribute('data-slide') === slideNum) {
+                            dot.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        slides.forEach(slide => observer.observe(slide));
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const currentSlide = [...slides].findIndex(slide => {
+                const rect = slide.getBoundingClientRect();
+                return rect.top >= -100 && rect.top <= 100;
+            });
+            
+            if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+                e.preventDefault();
+                if (currentSlide < slides.length - 1) {
+                    slides[currentSlide + 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                e.preventDefault();
+                if (currentSlide > 0) {
+                    slides[currentSlide - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
