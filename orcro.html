@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Orçamentário - Rondônia 2026</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: #1a2235;
+            --bg-hover: #243049;
+            --accent-primary: #00d4aa;
+            --accent-secondary: #0ea5e9;
+            --accent-warning: #f59e0b;
+            --accent-danger: #ef4444;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: #334155;
+            --gradient-1: linear-gradient(135deg, #00d4aa 0%, #0ea5e9 100%);
+            --gradient-2: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            --shadow-glow: 0 0 40px rgba(0, 212, 170, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Background effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 170, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(14, 165, 233, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+
+        .logo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gradient-1);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--bg-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.75rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-1);
+        }
+
+        .stat-card:nth-child(2)::before {
+            background: var(--gradient-2);
+        }
+
+        .stat-card:nth-child(3)::before {
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+            border-color: var(--accent-primary);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-detail {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        /* Controls Panel */
+        .controls-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .control-group label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        select, input[type="text"] {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            min-width: 200px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        select:hover, input[type="text"]:hover {
+            border-color: var(--accent-primary);
+        }
+
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.2);
+        }
+
+        .btn {
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            color: var(--bg-primary);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 212, 170, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+            box-shadow: none;
+        }
+
+        /* Chart Container */
+        .chart-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        #mainChart {
+            width: 100%;
+            height: 600px;
+        }
+
+        /* Comparison Panel */
+        .comparison-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .comparison-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .comparison-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .selected-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .selected-tag {
+            background: var(--bg-hover);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .selected-tag:hover {
+            border-color: var(--accent-danger);
+        }
+
+        .selected-tag .remove-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            line-height: 1;
+            padding: 0;
+            transition: color 0.2s ease;
+        }
+
+        .selected-tag .remove-btn:hover {
+            color: var(--accent-danger);
+        }
+
+        #comparisonChart {
+            width: 100%;
+            height: 400px;
+        }
+
+        .comparison-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .comp-stat {
+            text-align: center;
+        }
+
+        .comp-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .comp-stat-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-top: 0.25rem;
+        }
+
+        /* Data Table */
+        .table-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            text-align: left;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            position: sticky;
+            top: 0;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        th:hover {
+            background: var(--bg-hover);
+            color: var(--accent-primary);
+        }
+
+        th.sorted {
+            color: var(--accent-primary);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        tr {
+            transition: background 0.2s ease;
+            cursor: pointer;
+        }
+
+        tr:hover {
+            background: var(--bg-hover);
+        }
+
+        tr.selected {
+            background: rgba(0, 212, 170, 0.1);
+            border-left: 3px solid var(--accent-primary);
+        }
+
+        .value-cell {
+            font-family: 'Space Mono', monospace;
+            text-align: right;
+        }
+
+        .checkbox-cell {
+            width: 40px;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--accent-primary);
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            select, input[type="text"] {
+                min-width: 100%;
+            }
+
+            #mainChart {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-badge">
+                <span>📊</span> Business Intelligence
+            </div>
+            <h1>Orçamento de Rondônia 2026</h1>
+            <p class="subtitle">Dashboard interativo para análise e comparação das unidades orçamentárias do Estado de Rondônia</p>
+        </header>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Geral</div>
+                <div class="stat-value">R$ 18,65 bi</div>
+                <div class="stat-detail">81 unidades orçamentárias</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Tesouro</div>
+                <div class="stat-value">R$ 11,58 bi</div>
+                <div class="stat-detail">62,1% do orçamento total</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Outras Fontes</div>
+                <div class="stat-value">R$ 7,07 bi</div>
+                <div class="stat-detail">37,9% do orçamento total</div>
+            </div>
+        </div>
+
+        <!-- Controls Panel -->
+        <div class="controls-panel">
+            <div class="control-group">
+                <label>Ordenar por</label>
+                <select id="sortBy">
+                    <option value="total">Total (maior → menor)</option>
+                    <option value="total_asc">Total (menor → maior)</option>
+                    <option value="tesouro">Tesouro</option>
+                    <option value="outras">Outras Fontes</option>
+                    <option value="nome">Nome (A-Z)</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Filtrar por valor</label>
+                <select id="filterValue">
+                    <option value="all">Todos</option>
+                    <option value="1b">Acima de R$ 1 bilhão</option>
+                    <option value="500m">Acima de R$ 500 milhões</option>
+                    <option value="100m">Acima de R$ 100 milhões</option>
+                    <option value="50m">Abaixo de R$ 50 milhões</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Buscar</label>
+                <input type="text" id="searchInput" placeholder="Digite o nome do órgão...">
+            </div>
+            <div class="control-group" style="justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="resetFilters()">Limpar Filtros</button>
+            </div>
+        </div>
+
+        <!-- Main Chart -->
+        <div class="chart-section">
+            <div class="chart-header">
+                <h2 class="chart-title">Distribuição Orçamentária por Unidade</h2>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: #00d4aa;"></div>
+                        <span>Tesouro</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: #8b5cf6;"></div>
+                        <span>Outras Fontes</span>
+                    </div>
+                </div>
+            </div>
+            <div id="mainChart"></div>
+        </div>
+
+        <!-- Comparison Panel -->
+        <div class="comparison-panel">
+            <div class="comparison-header">
+                <h2 class="comparison-title">🔍 Comparação de Itens Selecionados</h2>
+                <button class="btn btn-secondary" onclick="clearComparison()">Limpar Seleção</button>
+            </div>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem;">
+                Selecione itens na tabela abaixo ou clique nas barras do gráfico para comparar
+            </p>
+            <div class="selected-items" id="selectedItems">
+                <div class="empty-state" style="padding: 1rem; width: 100%;">Nenhum item selecionado para comparação</div>
+            </div>
+            <div id="comparisonChart" style="display: none;"></div>
+            <div class="comparison-stats" id="comparisonStats" style="display: none;"></div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="table-section">
+            <div class="table-header">
+                <h2 class="chart-title">📋 Tabela de Dados</h2>
+                <span id="tableCount" style="color: var(--text-muted);">81 registros</span>
+            </div>
+            <div class="table-container">
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th class="checkbox-cell">
+                                <input type="checkbox" id="selectAll" title="Selecionar todos">
+                            </th>
+                            <th onclick="sortTable('nome')">Órgão / Unidade Orçamentária</th>
+                            <th onclick="sortTable('tesouro')">Tesouro</th>
+                            <th onclick="sortTable('outras')">Outras Fontes</th>
+                            <th onclick="sortTable('total')" class="sorted">Total ▼</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer>
+            <p>Dashboard Orçamentário do Estado de Rondônia • Lei Orçamentária 2026 • Assembleia Legislativa</p>
+        </footer>
+    </div>
+
+    <script>
+        // Data
+        const rawData = [
+            {nome: "01.001 ASSEMBLEIA LEGISLATIVA DO ESTADO DE RONDÔNIA", tesouro: 552509013, outras: 0, total: 552509013},
+            {nome: "02.001 TRIBUNAL DE CONTAS DO ESTADO DE RONDÔNIA", tesouro: 294208154, outras: 34274076, total: 328482230},
+            {nome: "02.011 FUNDO DE DESENVOLVIMENTO INSTITUCIONAL", tesouro: 0, outras: 5842000, total: 5842000},
+            {nome: "03.001 TRIBUNAL DE JUSTIÇA DO ESTADO DE RONDÔNIA", tesouro: 1307720495, outras: 308833705, total: 1616554200},
+            {nome: "03.011 FUNDO DE APERFEIÇOAMENTO DOS SERVIÇOS JUDICIÁRIOS", tesouro: 0, outras: 311492090, total: 311492090},
+            {nome: "11.003 PROCURADORIA-GERAL DO ESTADO DE RONDÔNIA", tesouro: 135560548, outras: 0, total: 135560548},
+            {nome: "11.004 SUPERINTENDÊNCIA ESTADUAL DE TURISMO", tesouro: 5481291, outras: 0, total: 5481291},
+            {nome: "11.005 CONTROLADORIA-GERAL DO ESTADO", tesouro: 16920715, outras: 0, total: 16920715},
+            {nome: "11.006 SECRETARIA DE ESTADO DO DESENVOLVIMENTO ECONÔMICO", tesouro: 14850326, outras: 0, total: 14850326},
+            {nome: "11.007 SUPERINTENDÊNCIA ESTADUAL DE TECNOLOGIA DA INFORMAÇÃO E COMUNICAÇÃO", tesouro: 31781641, outras: 0, total: 31781641},
+            {nome: "11.008 SUPERINTENDÊNCIA ESTADUAL DE COMPRAS E LICITAÇÃO", tesouro: 10746298, outras: 0, total: 10746298},
+            {nome: "11.009 SUPERINTENDÊNCIA DE GESTÃO DOS GASTOS PÚBLICOS ADMINISTRATIVOS", tesouro: 182144665, outras: 0, total: 182144665},
+            {nome: "11.010 FUNDO ESPECIAL DE MODERNIZAÇÃO DA PROCURADORIA-GERAL DO ESTADO DE RONDÔNIA", tesouro: 0, outras: 6742086, total: 6742086},
+            {nome: "11.011 FUNDO GARANTIDOR DE PPP-RO", tesouro: 0, outras: 11190267, total: 11190267},
+            {nome: "11.013 FUNDO DE INVESTIMENTO E DESENVOLVIMENTO INDUSTRIAL DO ESTADO DE RONDÔNIA", tesouro: 0, outras: 73510503, total: 73510503},
+            {nome: "11.016 FUNDO ESTADUAL DE DEFESA DO CONSUMIDOR", tesouro: 0, outras: 1549782, total: 1549782},
+            {nome: "11.017 FUNDO ESTADUAL DO TRABALHO, EMPREGO, RENDA DO ESTADO DE RONDÔNIA", tesouro: 0, outras: 1000, total: 1000},
+            {nome: "11.020 CONTABILIDADE GERAL DO ESTADO", tesouro: 33912915, outras: 0, total: 33912915},
+            {nome: "11.022 JUNTA COMERCIAL DO ESTADO DE RONDÔNIA", tesouro: 0, outras: 13950292, total: 13950292},
+            {nome: "11.023 INSTITUTO DE PESOS E MEDIDAS DO ESTADO DE RONDÔNIA", tesouro: 2776229, outras: 7184066, total: 9960295},
+            {nome: "11.025 DEPARTAMENTO ESTADUAL DE ESTRADAS DE RODAGEM E TRANSPORTES", tesouro: 151311495, outras: 30408325, total: 181719820},
+            {nome: "11.026 AGÊNCIA DE REGULAÇÃO DE SERVIÇOS PÚBLICOS DELEGADOS DO ESTADO DE RONDÔNIA", tesouro: 5205288, outras: 2981873, total: 8187161},
+            {nome: "11.033 FUNDAÇÃO RONDÔNIA DE AMPARO AO DESENVOLVIMENTO DAS AÇÕES CIENTÍFICAS E TECNOLÓGICAS E À PESQUISA DO ESTADO DE RONDÔNIA", tesouro: 7458888, outras: 0, total: 7458888},
+            {nome: "11.050 COMPANHIA DE ÁGUAS E ESGOTO DE RONDÔNIA", tesouro: 68186180, outras: 209934636, total: 278120816},
+            {nome: "11.051 SOCIEDADE DE PORTOS E HIDROVIAS DO ESTADO RONDÔNIA", tesouro: 6280705, outras: 12730456, total: 19011161},
+            {nome: "13.001 SECRETARIA DE ESTADO DE PLANEJAMENTO, ORÇAMENTO E GESTÃO", tesouro: 421656950, outras: 0, total: 421656950},
+            {nome: "13.006 SUPERINTENDÊNCIA ESTADUAL DE GESTÃO DE PESSOAS", tesouro: 39630520, outras: 0, total: 39630520},
+            {nome: "14.001 SECRETARIA DE ESTADO DE FINANÇAS", tesouro: 291548114, outras: 12557170, total: 304105284},
+            {nome: "14.002 RECURSOS SOB A SUPERVISÃO DA SECRETARIA DE FINANÇAS - RS-SEFIN", tesouro: 1203448798, outras: 32087534, total: 1235536332},
+            {nome: "14.011 FUNDO PARA INFRAESTRUTURA DE TRANSPORTE E HABITAÇÃO", tesouro: 0, outras: 171200488, total: 171200488},
+            {nome: "14.012 FUNDO DE DESENVOLVIMENTO E APERFEIÇOAMENTO DA ADMINISTRAÇÃO TRIBUTÁRIA", tesouro: 7708511, outras: 24537589, total: 32246100},
+            {nome: "14.023 INSTITUTO PREVIDENCIÁRIO SERV. PÚBLICOS", tesouro: 0, outras: 82537604, total: 82537604},
+            {nome: "14.025 FUNDO PREVIDENCIÁRIO CAPITALIZADO DO IPERON", tesouro: 0, outras: 1957883272, total: 1957883272},
+            {nome: "15.001 SECRETARIA DE ESTADO DA SEGURANÇA, DEFESA E CIDADANIA", tesouro: 1781907826, outras: 175482080, total: 1957389906},
+            {nome: "15.003 POLÍCIA CIVIL DO ESTADO DE RONDÔNIA", tesouro: 18946799, outras: 0, total: 18946799},
+            {nome: "15.004 CORPO DE BOMBEIROS MILITAR DE RONDÔNIA", tesouro: 19037211, outras: 0, total: 19037211},
+            {nome: "15.005 POLÍCIA MILITAR DE RONDÔNIA", tesouro: 41671719, outras: 0, total: 41671719},
+            {nome: "15.006 SUPERINTENDÊNCIA DE POLÍCIA TÉCNICO-CIENTÍFICA", tesouro: 2527216, outras: 0, total: 2527216},
+            {nome: "15.011 FUNDO ESPECIAL DE REEQUIPAMENTO POLICIAL", tesouro: 0, outras: 1475000, total: 1475000},
+            {nome: "15.014 FUNDO ESPECIAL DO CORPO DE BOMBEIROS MILITAR", tesouro: 0, outras: 25378123, total: 25378123},
+            {nome: "15.015 FUNDO ESPECIAL DE MODERNIZAÇÃO E REAPARELHAMENTO DA POLÍCIA MILITAR", tesouro: 0, outras: 1363875, total: 1363875},
+            {nome: "15.017 FUNDO ESTADUAL SEGURANÇA PÚBLICA", tesouro: 0, outras: 20670933, total: 20670933},
+            {nome: "15.020 DEPARTAMENTO ESTADUAL DE TRÂNSITO", tesouro: 0, outras: 499419705, total: 499419705},
+            {nome: "16.001 SECRETARIA DE ESTADO DA EDUCAÇÃO", tesouro: 985771267, outras: 2041858382, total: 3027629649},
+            {nome: "16.020 INSTITUTO ESTADUAL DE DESENVOLVIMENTO DA EDUCAÇÃO PROFISSIONAL", tesouro: 23737337, outras: 3222557, total: 26959894},
+            {nome: "16.031 FUNDAÇÃO CULTURAL DO ESTADO DE RONDÔNIA", tesouro: 4415719, outras: 950000, total: 5365719},
+            {nome: "17.010 FUNDO ESTADUAL DE PREVENÇÃO, FISCALIZAÇÃO E REPRESSÃO DE ENTORPECENTES", tesouro: 0, outras: 767150, total: 767150},
+            {nome: "17.012 FUNDO ESTADUAL DE SAÚDE", tesouro: 1722147320, outras: 483550795, total: 2205698115},
+            {nome: "17.013 FUNDO ESTADUAL PARA IMPLANTAÇÃO DO HEMOCENTRO EM PORTO VELHO", tesouro: 231565360, outras: 302809, total: 231868169},
+            {nome: "17.032 FUNDAÇÃO DE HEMATOLOGIA E HEMOTERAPIA DE RONDÔNIA", tesouro: 57140895, outras: 12961116, total: 70102011},
+            {nome: "17.033 INSTITUTO ESTADUAL DE EDUCAÇÃO EM SAÚDE PÚBLICA DE RONDÔNIA", tesouro: 7270501, outras: 0, total: 7270501},
+            {nome: "17.034 AGÊNCIA ESTADUAL DE VIGILÂNCIA EM SAÚDE DE RONDÔNIA", tesouro: 20285142, outras: 6314892, total: 26600034},
+            {nome: "18.001 SECRETARIA DE ESTADO DO DESENVOLVIMENTO AMBIENTAL", tesouro: 67283096, outras: 4522865, total: 71805961},
+            {nome: "18.011 FUNDO ESPECIAL DE PROTEÇÃO AMBIENTAL", tesouro: 0, outras: 28862714, total: 28862714},
+            {nome: "18.012 FUNDO ESTADUAL DE RECURSOS HÍDRICOS", tesouro: 0, outras: 2246045, total: 2246045},
+            {nome: "18.013 FUNDO ESTADUAL DE GOVERNANÇA CLIMÁTICA E SERVIÇOS AMBIENTAIS", tesouro: 0, outras: 320000, total: 320000},
+            {nome: "19.001 SECRETARIA DE ESTADO DA AGRICULTURA", tesouro: 22908033, outras: 51564864, total: 74472897},
+            {nome: "19.014 FUNDO ESTADUAL DE SANIDADE ANIMAL", tesouro: 0, outras: 33104000, total: 33104000},
+            {nome: "19.023 AGÊNCIA DE DEFESA SANITÁRIA AGROSILVOPASTORIL DO ESTADO DE RONDÔNIA", tesouro: 117690293, outras: 81311877, total: 199002170},
+            {nome: "19.025 ENTIDADE AUTÁRQUICA DE ASSISTÊNCIA TÉCNICA E EXTENSÃO RURAL DO ESTADO DE RONDÔNIA", tesouro: 113644023, outras: 16332155, total: 129976178},
+            {nome: "21.001 SECRETARIA DE ESTADO DA JUSTIÇA", tesouro: 560105122, outras: 1825000, total: 561930122},
+            {nome: "21.011 FUNDO PENITENCIÁRIO DO ESTADO DE RONDÔNIA", tesouro: 2461135, outras: 15625000, total: 18086135},
+            {nome: "23.001 SECRETARIA DE ESTADO DA MULHER, DA FAMÍLIA, DA ASSISTÊNCIA E DO DESENVOLVIMENTO SOCIAL", tesouro: 70359156, outras: 3783083, total: 74142239},
+            {nome: "23.002 SUPERINTENDÊNCIA ESTADUAL DO INDÍGENA", tesouro: 2538090, outras: 0, total: 2538090},
+            {nome: "23.011 FUNDO ESTADUAL DE COMBATE E ERRADICAÇÃO DA POBREZA DE RONDÔNIA", tesouro: 0, outras: 46621727, total: 46621727},
+            {nome: "23.012 FUNDO ESTADUAL DE ASSISTÊNCIA SOCIAL", tesouro: 31881047, outras: 508346, total: 32389393},
+            {nome: "23.013 FUNDO ESTADUAL DIREITOS CRIANÇA E ADOLESCENTE", tesouro: 114796, outras: 125090, total: 239886},
+            {nome: "23.015 FUNDO ESTADUAL DOS DIREITOS DA PESSOA IDOSA", tesouro: 157448, outras: 9669, total: 167117},
+            {nome: "23.016 FUNDO ESTADUAL DOS DIREITOS DA MULHER", tesouro: 114796, outras: 1989, total: 116785},
+            {nome: "23.030 FUNDO ESTADUAL DE ATENDIMENTO SOCIOEDUCATIVO", tesouro: 47634993, outras: 0, total: 47634993},
+            {nome: "27.001 SECRETARIA DE ESTADO DE OBRAS E SERVIÇOS PÚBLICOS", tesouro: 45580166, outras: 70575068, total: 116155234},
+            {nome: "29.001 MINISTÉRIO PÚBLICO DO ESTADO DE RONDÔNIA", tesouro: 576833310, outras: 75634589, total: 652467899},
+            {nome: "29.012 FUNDO DE DESENVOLVIMENTO INSTITUCIONAL DO MINISTÉRIO PÚBLICO", tesouro: 0, outras: 29320000, total: 29320000},
+            {nome: "29.013 FUNDO DE RECONSTITUIÇÃO DE BENS LESADOS", tesouro: 0, outras: 1800000, total: 1800000},
+            {nome: "30.001 DEFENSORIA PÚBLICA DO ESTADO DE RONDÔNIA", tesouro: 177219872, outras: 0, total: 177219872},
+            {nome: "30.011 FUNDO ESPECIAL DA DPE", tesouro: 0, outras: 13422522, total: 13422522},
+            {nome: "31.001 SECRETARIA DE ESTADO DE PATRIMÔNIO E REGULARIZAÇÃO FUNDIÁRIA", tesouro: 21768951, outras: 0, total: 21768951},
+            {nome: "31.010 FUNDO ESPECIAL DE REGULARIZAÇÃO FUNDIÁRIA URBANA E RURAL DO ESTADO DE RONDÔNIA", tesouro: 0, outras: 6047418, total: 6047418},
+            {nome: "32.001 SECRETARIA DE ESTADO DA JUVENTUDE, CULTURA, ESPORTE E LAZER", tesouro: 13457057, outras: 0, total: 13457057},
+            {nome: "32.012 FUNDO DE DESENVOLVIMENTO DOS DESPORTOS", tesouro: 46390, outras: 2000, total: 48390},
+            {nome: "32.013 FUNDO ESTADUAL DE DESENVOLVIMENTO DA CULTURA", tesouro: 2961214, outras: 0, total: 2961214}
+        ];
+
+        let filteredData = [...rawData];
+        let selectedItems = new Set();
+        let mainChart, comparisonChart;
+
+        // Format currency
+        function formatCurrency(value) {
+            if (value === 0) return '-';
+            return 'R$ ' + value.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+
+        function formatCurrencyShort(value) {
+            if (value >= 1000000000) {
+                return 'R$ ' + (value / 1000000000).toFixed(2) + ' bi';
+            } else if (value >= 1000000) {
+                return 'R$ ' + (value / 1000000).toFixed(1) + ' mi';
+            } else if (value >= 1000) {
+                return 'R$ ' + (value / 1000).toFixed(0) + ' mil';
+            }
+            return formatCurrency(value);
+        }
+
+        // Truncate text
+        function truncateText(text, maxLength = 50) {
+            if (text.length <= maxLength) return text;
+            return text.substring(0, maxLength) + '...';
+        }
+
+        // Initialize main chart
+        function initMainChart() {
+            mainChart = echarts.init(document.getElementById('mainChart'));
+            updateMainChart();
+            
+            mainChart.on('click', function(params) {
+                if (params.componentType === 'series') {
+                    const item = filteredData[params.dataIndex];
+                    toggleSelection(item.nome);
+                }
+            });
+
+            window.addEventListener('resize', () => mainChart.resize());
+        }
+
+        // Update main chart
+        function updateMainChart() {
+            const names = filteredData.map(d => truncateText(d.nome, 40));
+            const tesouroValues = filteredData.map(d => d.tesouro);
+            const outrasValues = filteredData.map(d => d.outras);
+
+            const option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { type: 'shadow' },
+                    backgroundColor: '#1a2235',
+                    borderColor: '#334155',
+                    textStyle: { color: '#f8fafc' },
+                    formatter: function(params) {
+                        const idx = params[0].dataIndex;
+                        const item = filteredData[idx];
+                        return `<strong>${item.nome}</strong><br/>
+                                <span style="color:#00d4aa">● Tesouro:</span> ${formatCurrency(item.tesouro)}<br/>
+                                <span style="color:#8b5cf6">● Outras Fontes:</span> ${formatCurrency(item.outras)}<br/>
+                                <strong>Total:</strong> ${formatCurrency(item.total)}`;
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '15%',
+                    top: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: names,
+                    axisLabel: {
+                        rotate: 45,
+                        color: '#64748b',
+                        fontSize: 10,
+                        interval: 0,
+                        formatter: function(value) {
+                            return value.length > 20 ? value.substring(0, 20) + '...' : value;
+                        }
+                    },
+                    axisLine: { lineStyle: { color: '#334155' } }
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLabel: {
+                        color: '#64748b',
+                        formatter: function(value) {
+                            if (value >= 1000000000) return (value / 1000000000).toFixed(1) + 'B';
+                            if (value >= 1000000) return (value / 1000000).toFixed(0) + 'M';
+                            return value;
+                        }
+                    },
+                    axisLine: { lineStyle: { color: '#334155' } },
+                    splitLine: { lineStyle: { color: '#1e293b' } }
+                },
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        show: true,
+                        xAxisIndex: [0],
+                        start: 0,
+                        end: 30,
+                        height: 25,
+                        bottom: 10,
+                        borderColor: '#334155',
+                        backgroundColor: '#111827',
+                        fillerColor: 'rgba(0, 212, 170, 0.2)',
+                        handleStyle: { color: '#00d4aa' },
+                        textStyle: { color: '#94a3b8' }
+                    },
+                    {
+                        type: 'inside',
+                        xAxisIndex: [0],
+                        start: 0,
+                        end: 30
+                    }
+                ],
+                series: [
+                    {
+                        name: 'Tesouro',
+                        type: 'bar',
+                        stack: 'total',
+                        data: tesouroValues,
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: '#00d4aa' },
+                                { offset: 1, color: '#059669' }
+                            ])
+                        },
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 20,
+                                shadowColor: 'rgba(0, 212, 170, 0.5)'
+                            }
+                        }
+                    },
+                    {
+                        name: 'Outras Fontes',
+                        type: 'bar',
+                        stack: 'total',
+                        data: outrasValues,
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: '#8b5cf6' },
+                                { offset: 1, color: '#6d28d9' }
+                            ])
+                        },
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 20,
+                                shadowColor: 'rgba(139, 92, 246, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+
+            mainChart.setOption(option);
+        }
+
+        // Update comparison chart
+        function updateComparisonChart() {
+            const compContainer = document.getElementById('comparisonChart');
+            const compStats = document.getElementById('comparisonStats');
+            
+            if (selectedItems.size === 0) {
+                compContainer.style.display = 'none';
+                compStats.style.display = 'none';
+                return;
+            }
+
+            compContainer.style.display = 'block';
+            compStats.style.display = 'grid';
+
+            if (!comparisonChart) {
+                comparisonChart = echarts.init(compContainer);
+                window.addEventListener('resize', () => comparisonChart.resize());
+            }
+
+            const selectedData = rawData.filter(d => selectedItems.has(d.nome));
+            const names = selectedData.map(d => truncateText(d.nome, 30));
+
+            const option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { type: 'shadow' },
+                    backgroundColor: '#1a2235',
+                    borderColor: '#334155',
+                    textStyle: { color: '#f8fafc' },
+                    formatter: function(params) {
+                        const idx = params[0].dataIndex;
+                        const item = selectedData[idx];
+                        return `<strong>${item.nome}</strong><br/>
+                                <span style="color:#00d4aa">● Tesouro:</span> ${formatCurrency(item.tesouro)}<br/>
+                                <span style="color:#8b5cf6">● Outras Fontes:</span> ${formatCurrency(item.outras)}<br/>
+                                <strong>Total:</strong> ${formatCurrency(item.total)}`;
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '10%',
+                    top: '10%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: names,
+                    axisLabel: {
+                        rotate: 20,
+                        color: '#94a3b8',
+                        fontSize: 11
+                    },
+                    axisLine: { lineStyle: { color: '#334155' } }
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLabel: {
+                        color: '#64748b',
+                        formatter: function(value) {
+                            if (value >= 1000000000) return (value / 1000000000).toFixed(1) + 'B';
+                            if (value >= 1000000) return (value / 1000000).toFixed(0) + 'M';
+                            return value;
+                        }
+                    },
+                    axisLine: { lineStyle: { color: '#334155' } },
+                    splitLine: { lineStyle: { color: '#1e293b' } }
+                },
+                series: [
+                    {
+                        name: 'Tesouro',
+                        type: 'bar',
+                        data: selectedData.map(d => d.tesouro),
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: '#00d4aa' },
+                                { offset: 1, color: '#059669' }
+                            ])
+                        }
+                    },
+                    {
+                        name: 'Outras Fontes',
+                        type: 'bar',
+                        data: selectedData.map(d => d.outras),
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: '#8b5cf6' },
+                                { offset: 1, color: '#6d28d9' }
+                            ])
+                        }
+                    }
+                ]
+            };
+
+            comparisonChart.setOption(option, true);
+
+            // Update stats
+            const totalSum = selectedData.reduce((sum, d) => sum + d.total, 0);
+            const tesouroSum = selectedData.reduce((sum, d) => sum + d.tesouro, 0);
+            const outrasSum = selectedData.reduce((sum, d) => sum + d.outras, 0);
+            const avgTotal = totalSum / selectedData.length;
+            const maxItem = selectedData.reduce((max, d) => d.total > max.total ? d : max);
+            const minItem = selectedData.reduce((min, d) => d.total < min.total ? d : min);
+
+            compStats.innerHTML = `
+                <div class="comp-stat">
+                    <div class="comp-stat-label">Soma Total</div>
+                    <div class="comp-stat-value">${formatCurrencyShort(totalSum)}</div>
+                </div>
+                <div class="comp-stat">
+                    <div class="comp-stat-label">Média</div>
+                    <div class="comp-stat-value">${formatCurrencyShort(avgTotal)}</div>
+                </div>
+                <div class="comp-stat">
+                    <div class="comp-stat-label">% Tesouro</div>
+                    <div class="comp-stat-value">${((tesouroSum / totalSum) * 100).toFixed(1)}%</div>
+                </div>
+                <div class="comp-stat">
+                    <div class="comp-stat-label">Maior</div>
+                    <div class="comp-stat-value" title="${maxItem.nome}">${formatCurrencyShort(maxItem.total)}</div>
+                </div>
+                <div class="comp-stat">
+                    <div class="comp-stat-label">Menor</div>
+                    <div class="comp-stat-value" title="${minItem.nome}">${formatCurrencyShort(minItem.total)}</div>
+                </div>
+            `;
+        }
+
+        // Toggle item selection
+        function toggleSelection(nome) {
+            if (selectedItems.has(nome)) {
+                selectedItems.delete(nome);
+            } else {
+                selectedItems.add(nome);
+            }
+            updateSelectedItemsDisplay();
+            updateComparisonChart();
+            updateTable();
+        }
+
+        // Update selected items display
+        function updateSelectedItemsDisplay() {
+            const container = document.getElementById('selectedItems');
+            
+            if (selectedItems.size === 0) {
+                container.innerHTML = '<div class="empty-state" style="padding: 1rem; width: 100%;">Nenhum item selecionado para comparação</div>';
+                return;
+            }
+
+            container.innerHTML = Array.from(selectedItems).map(nome => `
+                <div class="selected-tag">
+                    <span>${truncateText(nome, 40)}</span>
+                    <button class="remove-btn" onclick="toggleSelection('${nome.replace(/'/g, "\\'")}')">&times;</button>
+                </div>
+            `).join('');
+        }
+
+        // Clear comparison
+        function clearComparison() {
+            selectedItems.clear();
+            updateSelectedItemsDisplay();
+            updateComparisonChart();
+            updateTable();
+            document.getElementById('selectAll').checked = false;
+        }
+
+        // Update table
+        function updateTable() {
+            const tbody = document.getElementById('tableBody');
+            const count = document.getElementById('tableCount');
+            
+            count.textContent = `${filteredData.length} registros`;
+
+            tbody.innerHTML = filteredData.map(item => `
+                <tr class="${selectedItems.has(item.nome) ? 'selected' : ''}" onclick="toggleSelection('${item.nome.replace(/'/g, "\\'")}')">
+                    <td class="checkbox-cell">
+                        <input type="checkbox" ${selectedItems.has(item.nome) ? 'checked' : ''} onclick="event.stopPropagation(); toggleSelection('${item.nome.replace(/'/g, "\\'")}')">
+                    </td>
+                    <td title="${item.nome}">${item.nome}</td>
+                    <td class="value-cell">${formatCurrency(item.tesouro)}</td>
+                    <td class="value-cell">${formatCurrency(item.outras)}</td>
+                    <td class="value-cell" style="font-weight: 600;">${formatCurrency(item.total)}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Sort table
+        let currentSort = { field: 'total', asc: false };
+        
+        function sortTable(field) {
+            if (currentSort.field === field) {
+                currentSort.asc = !currentSort.asc;
+            } else {
+                currentSort.field = field;
+                currentSort.asc = field === 'nome';
+            }
+
+            applyFilters();
+
+            // Update header styling
+            document.querySelectorAll('th').forEach(th => th.classList.remove('sorted'));
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const sortBy = document.getElementById('sortBy').value;
+            const filterValue = document.getElementById('filterValue').value;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            // Start with all data
+            filteredData = [...rawData];
+
+            // Apply search filter
+            if (searchTerm) {
+                filteredData = filteredData.filter(d => d.nome.toLowerCase().includes(searchTerm));
+            }
+
+            // Apply value filter
+            switch (filterValue) {
+                case '1b':
+                    filteredData = filteredData.filter(d => d.total >= 1000000000);
+                    break;
+                case '500m':
+                    filteredData = filteredData.filter(d => d.total >= 500000000);
+                    break;
+                case '100m':
+                    filteredData = filteredData.filter(d => d.total >= 100000000);
+                    break;
+                case '50m':
+                    filteredData = filteredData.filter(d => d.total < 50000000);
+                    break;
+            }
+
+            // Apply sort
+            switch (sortBy) {
+                case 'total':
+                    filteredData.sort((a, b) => b.total - a.total);
+                    break;
+                case 'total_asc':
+                    filteredData.sort((a, b) => a.total - b.total);
+                    break;
+                case 'tesouro':
+                    filteredData.sort((a, b) => b.tesouro - a.tesouro);
+                    break;
+                case 'outras':
+                    filteredData.sort((a, b) => b.outras - a.outras);
+                    break;
+                case 'nome':
+                    filteredData.sort((a, b) => a.nome.localeCompare(b.nome));
+                    break;
+            }
+
+            updateMainChart();
+            updateTable();
+        }
+
+        // Reset filters
+        function resetFilters() {
+            document.getElementById('sortBy').value = 'total';
+            document.getElementById('filterValue').value = 'all';
+            document.getElementById('searchInput').value = '';
+            applyFilters();
+        }
+
+        // Select all visible
+        document.getElementById('selectAll').addEventListener('change', function() {
+            if (this.checked) {
+                filteredData.forEach(d => selectedItems.add(d.nome));
+            } else {
+                filteredData.forEach(d => selectedItems.delete(d.nome));
+            }
+            updateSelectedItemsDisplay();
+            updateComparisonChart();
+            updateTable();
+        });
+
+        // Event listeners
+        document.getElementById('sortBy').addEventListener('change', applyFilters);
+        document.getElementById('filterValue').addEventListener('change', applyFilters);
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initMainChart();
+            applyFilters();
+        });
+    </script>
+</body>
+</html>
