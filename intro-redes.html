@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introdução às Redes de Computadores</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            color: #333;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 60px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: white;
+            border-left: 8px solid #d40054;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide h1 {
+            color: #d40054;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #d40054;
+            padding-bottom: 20px;
+        }
+
+        .slide h2 {
+            color: #d40054;
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .slide h3 {
+            color: #d40054;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .slide p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .slide ul {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .slide li {
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 2px solid #d40054;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            margin: 15px 0;
+            white-space: pre-wrap;
+        }
+
+        .highlight {
+            background: rgba(212, 0, 84, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #d40054;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #d40054;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 0 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #a8003d;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(212, 0, 84, 0.1);
+            color: #d40054;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .protocol-box {
+            background: rgba(212, 0, 84, 0.05);
+            border: 2px solid #d40054;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .protocol-box h4 {
+            color: #d40054;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .title-slide {
+            text-align: center;
+            background: linear-gradient(135deg, #d40054 0%, #a8003d 100%);
+            color: white;
+        }
+
+        .title-slide h1 {
+            color: white;
+            border-bottom: 3px solid white;
+            font-size: 3em;
+        }
+
+        .title-slide h2 {
+            color: white;
+            font-size: 1.5em;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Título -->
+        <div class="slide active title-slide">
+            <h1>Introdução às Redes de Computadores</h1>
+            <h2>Modelos OSI e TCP/IP</h2>
+            <p style="font-size: 1.3em; margin-top: 40px;">Apresentação para Graduação em Ciências da Computação</p>
+            <p style="font-size: 1.1em; margin-top: 20px;">Prof. Clayton G. C. Santos</p>
+        </div>
+
+        <!-- Slide 2: Introdução às Redes -->
+        <div class="slide">
+            <h2>Introdução às Redes de Computadores</h2>
+            <h3>O que são Redes de Computadores?</h3>
+            <p>Uma rede de computadores é um conjunto de dispositivos interconectados que podem comunicar-se e compartilhar recursos.</p>
+            
+            <h3>Benefícios das Redes:</h3>
+            <ul>
+                <li><span class="highlight">Compartilhamento de recursos</span> - impressoras, arquivos, conexão à internet</li>
+                <li><span class="highlight">Comunicação</span> - email, mensagens instantâneas, videoconferência</li>
+                <li><span class="highlight">Centralização</span> - backup, segurança, administração</li>
+                <li><span class="highlight">Economia</span> - redução de custos com hardware</li>
+                <li><span class="highlight">Flexibilidade</span> - acesso remoto e mobilidade</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: Objetivos da Apresentação -->
+        <div class="slide">
+            <h2>Objetivos da Apresentação</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Conceitos Fundamentais:</h3>
+                    <ul>
+                        <li>Modelo OSI (7 camadas)</li>
+                        <li>Modelo TCP/IP (4 camadas)</li>
+                        <li>Protocolos de rede</li>
+                        <li>Aplicações práticas</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Aspectos Práticos:</h3>
+                    <ul>
+                        <li>Comandos Windows e Linux</li>
+                        <li>Protocolos Bluetooth e WiFi</li>
+                        <li>Troubleshooting básico</li>
+                        <li>Ferramentas de diagnóstico</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Modelo OSI - Introdução -->
+        <div class="slide">
+            <h2>Modelo OSI (Open Systems Interconnection)</h2>
+            <p>Desenvolvido pela ISO em 1984, o modelo OSI divide a comunicação em rede em <span class="highlight">7 camadas distintas</span>.</p>
+            
+            <div class="protocol-box">
+                <h4>As 7 Camadas do Modelo OSI:</h4>
+                <ul>
+                    <li><strong>7. Aplicação</strong> - Interface com o usuário</li>
+                    <li><strong>6. Apresentação</strong> - Criptografia, compressão</li>
+                    <li><strong>5. Sessão</strong> - Controle de sessões</li>
+                    <li><strong>4. Transporte</strong> - Confiabilidade fim-a-fim</li>
+                    <li><strong>3. Rede</strong> - Roteamento</li>
+                    <li><strong>2. Enlace</strong> - Controle de acesso ao meio</li>
+                    <li><strong>1. Física</strong> - Transmissão de bits</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5: Modelo TCP/IP - Introdução -->
+        <div class="slide">
+            <h2>Modelo TCP/IP</h2>
+            <p>Modelo prático usado na Internet, desenvolvido pelo DoD (Departamento de Defesa dos EUA). Possui <span class="highlight">4 camadas</span>.</p>
+            
+            <div class="protocol-box">
+                <h4>As 4 Camadas do Modelo TCP/IP:</h4>
+                <ul>
+                    <li><strong>4. Aplicação</strong> - Aplicações de rede (HTTP, FTP, SMTP)</li>
+                    <li><strong>3. Transporte</strong> - TCP, UDP</li>
+                    <li><strong>2. Internet</strong> - IP, ICMP, ARP</li>
+                    <li><strong>1. Acesso à Rede</strong> - Ethernet, WiFi, Bluetooth</li>
+                </ul>
+            </div>
+            
+            <p><strong>Observação:</strong> O modelo TCP/IP é mais prático e amplamente utilizado, enquanto o OSI é mais teórico e educacional.</p>
+        </div>
+
+        <!-- Slide 6: Comparação OSI vs TCP/IP -->
+        <div class="slide">
+            <h2>Comparação: OSI vs TCP/IP</h2>
+            <div class="two-column">
+                <div>
+                    <div class="protocol-box">
+                        <h4>Modelo OSI</h4>
+                        <ul>
+                            <li>7 camadas</li>
+                            <li>Modelo teórico</li>
+                            <li>Educacional</li>
+                            <li>Mais detalhado</li>
+                            <li>Padrão ISO</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="protocol-box">
+                        <h4>Modelo TCP/IP</h4>
+                        <ul>
+                            <li>4 camadas</li>
+                            <li>Modelo prático</li>
+                            <li>Base da Internet</li>
+                            <li>Mais simples</li>
+                            <li>Padrão de facto</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p><strong>Mapeamento:</strong> Aplicação/Apresentação/Sessão (OSI) → Aplicação (TCP/IP)</p>
+        </div>
+
+        <!-- Slide 7: Camada Física - Conceitos -->
+        <div class="slide">
+            <h2>Camada 1: Física</h2>
+            <h3>Função:</h3>
+            <p>Responsável pela <span class="highlight">transmissão de bits</span> através do meio físico.</p>
+            
+            <h3>Características:</h3>
+            <ul>
+                <li>Define características elétricas, mecânicas e funcionais</li>
+                <li>Especifica voltagens, correntes e frequências</li>
+                <li>Define conectores e cabos</li>
+                <li>Não interpreta dados - apenas transmite bits</li>
+            </ul>
+            
+            <div class="protocol-box">
+                <h4>Exemplos de Tecnologias:</h4>
+                <ul>
+                    <li><strong>Cabo de par trançado</strong> - Cat5e, Cat6</li>
+                    <li><strong>Fibra óptica</strong> - Monomodo, multimodo</li>
+                    <li><strong>Wireless</strong> - WiFi, Bluetooth</li>
+                    <li><strong>Cabo coaxial</strong> - TV a cabo</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 8: Camada Física - Bluetooth e WiFi -->
+        <div class="slide">
+            <h2>Camada Física: Bluetooth e WiFi</h2>
+            <div class="two-column">
+                <div>
+                    <div class="protocol-box">
+                        <h4>Bluetooth</h4>
+                        <ul>
+                            <li><strong>Frequência:</strong> 2.4 GHz (ISM)</li>
+                            <li><strong>Alcance:</strong> 1-100 metros</li>
+                            <li><strong>Técnica:</strong> FHSS (Frequency Hopping)</li>
+                            <li><strong>Versões:</strong> 1.0 até 5.3</li>
+                            <li><strong>Aplicações:</strong> Periféricos, áudio</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="protocol-box">
+                        <h4>WiFi (IEEE 802.11)</h4>
+                        <ul>
+                            <li><strong>Frequências:</strong> 2.4/5/6 GHz</li>
+                            <li><strong>Alcance:</strong> 30-100 metros</li>
+                            <li><strong>Técnica:</strong> DSSS, OFDM</li>
+                            <li><strong>Padrões:</strong> a/b/g/n/ac/ax</li>
+                            <li><strong>Aplicações:</strong> LANs sem fio</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Camada Física - Comandos -->
+        <div class="slide">
+            <h2>Camada Física: Comandos Práticos</h2>
+            
+            <h3>Verificação de Interface de Rede:</h3>
+            <div class="code-block">
+# Windows
+ipconfig /all
+
+# Linux
+ip link show
+ifconfig -a
+lshw -class network</div>
+
+            <h3>Status Bluetooth e WiFi:</h3>
+            <div class="code-block"># Windows
+netsh wlan show profiles
+netsh bluetooth show status
+
+# Linux
+bluetoothctl list
+iwconfig
+nmcli dev wifi</div>
+
+            <h3>Informações de Hardware:</h3>
+            <div class="code-block"># Linux
+lspci | grep -i network
+lsusb | grep -i bluetooth
+dmesg | grep -i wifi</div>
+        </div>
+
+        <!-- Slide 10: Camada de Enlace - Conceitos -->
+        <div class="slide">
+            <h2>Camada 2: Enlace de Dados</h2>
+            <h3>Função:</h3>
+            <p>Fornece <span class="highlight">comunicação confiável</span> entre nós adjacentes através do meio físico.</p>
+            
+            <h3>Responsabilidades:</h3>
+            <ul>
+                <li><strong>Framing:</strong> Delimita e organiza os dados em quadros</li>
+                <li><strong>Endereçamento:</strong> Endereços MAC (48 bits)</li>
+                <li><strong>Controle de Acesso:</strong> CSMA/CD, CSMA/CA</li>
+                <li><strong>Detecção de Erros:</strong> CRC, checksum</li>
+                <li><strong>Controle de Fluxo:</strong> Evita sobrecarga do receptor</li>
+            </ul>
+            
+            <div class="protocol-box">
+                <h4>Protocolos Principais:</h4>
+                <p><strong>Ethernet, WiFi, PPP, Frame Relay, ATM</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Camada de Enlace - Exemplos -->
+        <div class="slide">
+            <h2>Camada de Enlace: Exemplos Práticos</h2>
+            
+            <div class="protocol-box">
+                <h4>Ethernet (IEEE 802.3)</h4>
+                <ul>
+                    <li>Endereços MAC únicos globalmente</li>
+                    <li>CSMA/CD para detecção de colisões</li>
+                    <li>Velocidades: 10 Mbps a 400 Gbps</li>
+                    <li>Quadros de 64 a 1518 bytes</li>
+                </ul>
+            </div>
+            
+            <div class="protocol-box">
+                <h4>WiFi (IEEE 802.11)</h4>
+                <ul>
+                    <li>CSMA/CA para evitar colisões</li>
+                    <li>WEP, WPA, WPA2, WPA3 (segurança)</li>
+                    <li>SSID para identificação da rede</li>
+                    <li>Handshake de 4 vias para autenticação</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12: Camada de Enlace - Comandos -->
+        <div class="slide">
+            <h2>Camada de Enlace: Comandos Práticos</h2>
+            
+            <h3>Verificação de Endereços MAC:</h3>
+            <div class="code-block"># Windows
+getmac /fo table
+ipconfig /all
+
+# Linux
+ip link show
+cat /sys/class/net/*/address</div>
+
+            <h3>Análise de Tráfego Ethernet:</h3>
+            <div class="code-block"># Linux
+tcpdump -i eth0 -e
+wireshark (interface gráfica)
+
+# Windows
+netsh trace start capture=yes</div>
+
+            <h3>Configuração WiFi:</h3>
+            <div class="code-block"># Linux
+nmcli dev wifi list
+nmcli dev wifi connect "SSID" password "senha"
+
+# Windows
+netsh wlan connect name="SSID"</div>
+        </div>
+
+        <!-- Slide 13: Camada de Rede - Conceitos -->
+        <div class="slide">
+            <h2>Camada 3: Rede</h2>
+            <h3>Função:</h3>
+            <p>Responsável pelo <span class="highlight">roteamento</span> de pacotes entre redes diferentes.</p>
+            
+            <h3>Características Principais:</h3>
+            <ul>
+                <li><strong>Endereçamento lógico:</strong> Endereços IP</li>
+                <li><strong>Roteamento:</strong> Determina o melhor caminho</li>
+                <li><strong>Fragmentação:</strong> Divide pacotes grandes</li>
+                <li><strong>Controle de Congestionamento:</strong> Gerencia tráfego</li>
+            </ul>
+            
+            <div class="protocol-box">
+                <h4>Protocolos Principais:</h4>
+                <ul>
+                    <li><strong>IP (IPv4/IPv6):</strong> Protocolo principal</li>
+                    <li><strong>ICMP:</strong> Mensagens de controle</li>
+                    <li><strong>ARP:</strong> Resolução de endereços</li>
+                    <li><strong>OSPF, BGP, RIP:</strong> Protocolos de roteamento</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 14: Camada de Rede - Exemplos -->
+        <div class="slide">
+            <h2>Camada de Rede: Exemplos Práticos</h2>
+            
+            <div class="two-column">
+                <div>
+                    <div class="protocol-box">
+                        <h4>IPv4</h4>
+                        <ul>
+                            <li>32 bits (4 octetos)</li>
+                            <li>Exemplo: 192.168.1.1</li>
+                            <li>Classes A, B, C</li>
+                            <li>Máscara de sub-rede</li>
+                            <li>NAT para conservar IPs</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="protocol-box">
+                        <h4>ICMP</h4>
+                        <ul>
+                            <li>Ping (echo request/reply)</li>
+                            <li>Traceroute</li>
+                            <li>Mensagens de erro</li>
+                            <li>MTU discovery</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="protocol-box">
+                        <h4>IPv6</h4>
+                        <ul>
+                            <li>128 bits (8 grupos)</li>
+                            <li>Exemplo: 2001:db8::1</li>
+                            <li>Autoconfiguração</li>
+                            <li>Sem NAT necessário</li>
+                            <li>IPSec integrado</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="protocol-box">
+                        <h4>ARP</h4>
+                        <ul>
+                            <li>IP → MAC</li>
+                            <li>Cache ARP</li>
+                            <li>Broadcast requests</li>
+                            <li>Unicast replies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Camada de Rede - Comandos -->
+        <div class="slide">
+            <h2>Camada de Rede: Comandos Práticos</h2>
+            
+            <h3>Configuração e Verificação de IP:</h3>
+            <div class="code-block"># Windows
+ipconfig
+ipconfig /release
+ipconfig /renew
+
+# Linux
+ip addr show
+ip route show
+dhclient eth0</div>
+
+            <h3>Testes de Conectividade:</h3>
+            <div class="code-block"># Ambos os sistemas
+ping 8.8.8.8
+ping -6 2001:4860:4860::8888
+tracert google.com     (Windows)
+traceroute google.com  (Linux)</div>
+
+            <h3>Cache ARP:</h3>
+            <div class="code-block"># Windows
+arp -a
+
+# Linux
+ip neigh show
+arp -a</div>
+        </div>
+
+        <!-- Slide 16: Camada de Transporte - Conceitos -->
+        <div class="slide">
+            <h2>Camada 4: Transporte</h2>
+            <h3>Função:</h3>
+            <p>Fornece <span class="highlight">comunicação fim-a-fim</span> confiável entre aplicações.</p>
+            
+            <h3>Responsabilidades:</h3>
+            <ul>
+                <li><strong>Segmentação:</strong> Divide dados em segmentos</li>
+                <li><strong>Controle de Fluxo:</strong> Janela deslizante</li>
+                <li><strong>Controle de Erro:</strong> Detecção e correção</li>
+                <li><strong>Multiplexação:</strong> Múltiplas conexões por processo</li>
+                <li><strong>Controle de Congestionamento:</strong> Evita sobrecarga</li>
+            </ul>
+            
+            <div class="protocol-box">
+                <h4>Protocolos Principais:</h4>
+                <p><strong>TCP (confiável), UDP (rápido), SCTP, DCCP</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 17: Camada de Transporte - Exemplos -->
+        <div class="slide">
+            <h2>Camada de Transporte: TCP vs UDP</h2>
+            
+            <div class="two-column">
+                <div>
+                    <div class="protocol-box">
+                        <h4>TCP (Transmission Control Protocol)</h4>
+                        <ul>
+                            <li><strong>Confiável:</strong> Garante entrega</li>
+                            <li><strong>Orientado à conexão:</strong> 3-way handshake</li>
+                            <li><strong>Controle de fluxo:</strong> Evita sobrecarga</li>
+                            <li><strong>Ordenação:</strong> Sequência de dados</li>
+                            <li><strong>Uso:</strong> HTTP, FTP, SSH, Email</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="protocol-box">
+                        <h4>UDP (User Datagram Protocol)</h4>
+                        <ul>
+                            <li><strong>Não confiável:</strong> Best effort</li>
+                            <li><strong>Sem conexão:</strong> Datagramas independentes</li>
+                            <li><strong>Sem controle de fluxo:</strong> Rápido</li>
+                            <li><strong>Sem ordenação:</strong> Pode chegar fora de ordem</li>
+                            <li><strong>Uso:</strong> DNS, DHCP, streaming, jogos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p><strong>Portas:</strong> HTTP (80), HTTPS (443), SSH (22), FTP (21), DNS (53)</p>
+        </div>
+
+        <!-- Slide 18: Camada de Transporte - Comandos -->
+        <div class="slide">
+            <h2>Camada de Transporte: Comandos Práticos</h2>
+            
+            <h3>Visualização de Conexões:</h3>
+            <div class="code-block"># Windows
+netstat -an
+netstat -b (mostra processos)
+
+# Linux
+ss -tuln
+netstat -tuln
+lsof -i</div>
+
+            <h3>Teste de Portas:</h3>
+            <div class="code-block"># Windows
+telnet google.com 80
+Test-NetConnection google.com -Port 443 (PowerShell)
+
+# Linux
+telnet google.com 80
+nc -zv google.com 80
+nmap -p 80,443 google.com</div>
+
+            <h3>Monitoramento de Tráfego:</h3>
+            <div class="code-block"># Linux
+tcpdump -i any port 80
+ss -i (estatísticas de conexão)
+
+# Windows
+netsh int tcp show global</div>
+        </div>
+
+        <!-- Slide 19: Camada de Sessão -->
+        <div class="slide">
+            <h2>Camada 5: Sessão</h2>
+            <h3>Função:</h3>
+            <p>Gerencia <span class="highlight">sessões de comunicação</span> entre aplicações.</p>
+            
+            <h3>Responsabilidades:</h3>
+            <ul>
+                <li><strong>Estabelecimento de sessão:</strong> Início da comunicação</li>
+                <li><strong>Manutenção:</strong> Controle durante a sessão</li>
+                <li><strong>Sincronização:</strong> Pontos de controle</li>
+                <li><strong>Terminação:</strong> Encerramento controlado</li>
+                <li><strong>Recuperação:</strong> Retomada após falhas</li>
+            </ul>
+            
+            <div class="protocol-box">
+                <h4>Exemplos de Protocolos/Tecnologias:</h4>
+                <ul>
+                    <li><strong>SQL sessions:</strong> Conexões de banco de dados</li>
+                    <li><strong>RPC:</strong> Remote Procedure Call</li>
+                    <li><strong>NetBIOS:</strong> Network Basic Input/Output System</li>
+                    <li><strong>SSH sessions:</strong> Sessões seguras</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 20: Camada de Apresentação -->
+        <div class="slide">
+            <h2>Camada 6: Apresentação</h2>
+            <h3>Função:</h3>
+            <p>Responsável pela <span class="highlight">formatação, criptografia e compressão</span> dos dados.</p>
+            
+            <h3>Responsabilidades:</h3>
+            <ul>
+                <li><strong>Codificação:</strong> ASCII, Unicode, EBCDIC</li>
+                <li><strong>Criptografia:</strong> SSL/TLS, AES, RSA</li>
+                <li><strong>Compressão:</strong> ZIP, GZIP, JPEG</li>
+                <li><strong>Conversão de formato:</strong> Entre diferentes sistemas</li>
+            </ul>
+            
+            <div class="protocol-box">
+                <h4>Exemplos Práticos:</h4>
+                <ul>
+                    <li><strong>HTTPS:</strong> HTTP com SSL/TLS</li>
+                    <li><strong>MIME:</strong> Multipurpose Internet Mail Extensions</li>
+                    <li><strong>PNG, JPEG:</strong> Formatos de imagem</li>
+                    <li><strong>MPEG:</strong> Compressão de vídeo</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 21: Camada de Aplicação - Conceitos -->
+        <div class="slide">
+            <h2>Camada 7: Aplicação</h2>
+            <h3>Função:</h3>
+            <p>Interface entre <span class="highlight">aplicações de rede e usuários</span>.</p>
+            
+            <h3>Características:</h3>
+            <ul>
+                <li>Fornece serviços de rede para aplicações</li>
+                <li>Interface direta com o usuário</li>
+                <li>Implementa protocolos específicos de aplicação</li>
+                <li>Gerencia comunicação entre processos</li>
+            </ul>
+            
+            <div class="protocol-box">
+                <h4>Categorias de Aplicações:</h4>
+                <ul>
+                    <li><strong>Web:</strong> HTTP, HTTPS</li>
+                    <li><strong>Email:</strong> SMTP, POP3, IMAP</li>
+                    <li><strong>Arquivos:</strong> FTP, TFTP, SFTP</li>
+                    <li><strong>Terminal remoto:</strong> SSH, Telnet</li>
+                    <li><strong>Nomes:</strong> DNS</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 22: Camada de Aplicação - Exemplos -->
+        <div class="slide">
+            <h2>Camada de Aplicação: Protocolos Principais</h2>
+            
+            <div class="two-column">
+                <div>
+                    <div class="protocol-box">
+                        <h4>HTTP/HTTPS (Web)</h4>
+                        <ul>
+                            <li>Porta 80 (HTTP), 443 (HTTPS)</li>
+                            <li>Métodos: GET, POST, PUT, DELETE</li>
+                            <li>Stateless por natureza</li>
+                            <li>HTTP/2, HTTP/3 (QUIC)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="protocol-box">
+                        <h4>FTP (File Transfer)</h4>
+                        <ul>
+                            <li>Porta 21 (controle), 20 (dados)</li>
+                            <li>Modo ativo vs passivo</li>
+                            <li>SFTP (seguro via SSH)</li>
+                            <li>FTPS (seguro via SSL/TLS)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="protocol-box">
+                        <h4>DNS (Domain Name System)</h4>
+                        <ul>
+                            <li>Porta 53 (UDP/TCP)</li>
+                            <li>Resolução hierárquica</li>
+                            <li>Tipos: A, AAAA, MX, CNAME</li>
+                            <li>Cache e TTL</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="protocol-box">
+                        <h4>Email (SMTP/POP3/IMAP)</h4>
+                        <ul>
+                            <li>SMTP: porta 25, 587, 465</li>
+                            <li>POP3: porta 110, 995</li>
+                            <li>IMAP: porta 143, 993</li>
+                            <li>MIME para anexos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Camada de Aplicação - Comandos -->
+        <div class="slide">
+            <h2>Camada de Aplicação: Comandos Práticos</h2>
+            
+            <h3>Testes Web e DNS:</h3>
+            <div class="code-block"># Ambos os sistemas
+nslookup google.com
+dig google.com (Linux)
+
+# Teste HTTP
+curl -I http://google.com
+wget --spider http://google.com (Linux)</div>
+
+            <h3>Transferência de Arquivos:</h3>
+            <div class="code-block"># FTP
+ftp ftp.example.com
+
+# SSH/SCP
+ssh user@server
+scp arquivo.txt user@server:/destino/</div>
+
+            <h3>Monitoramento de Serviços:</h3>
+            <div class="code-block"># Windows
+sc query
+Get-Service (PowerShell)
+
+# Linux
+systemctl status
+ps aux | grep -i ssh
+netstat -tlnp</div>
+        </div>
+
+        <!-- Slide 24: Resumo e Conclusões -->
+        <div class="slide">
+            <h2>Resumo e Conclusões</h2>
+            
+            <h3>Pontos-chave Aprendidos:</h3>
+            <ul>
+                <li><span class="highlight">Modelo OSI:</span> Framework teórico de 7 camadas</li>
+                <li><span class="highlight">TCP/IP:</span> Modelo prático de 4 camadas usado na Internet</li>
+                <li><span class="highlight">Cada camada</span> tem responsabilidades específicas</li>
+                <li><span class="highlight">Protocolos</span> implementam as funcionalidades de cada camada</li>
+                <li><span class="highlight">Ferramentas de linha de comando</span> permitem diagnóstico e configuração</li>
+            </ul>
+            
+            <div class="protocol-box">
+                <h4>Próximos Passos:</h4>
+                <ul>
+                    <li>Praticar com laboratórios de rede</li>
+                    <li>Estudar protocolos avançados</li>
+                    <li>Configurar equipamentos de rede</li>
+                    <li>Análise de tráfego com Wireshark</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 25: Referências Bibliográficas -->
+        <div class="slide">
+            <h2>Referências Bibliográficas</h2>
+            
+            <div class="protocol-box">
+                <h4>Livros Textos Recomendados:</h4>
+                <ul>
+                    <li><strong>TANENBAUM, A. S.; WETHERALL, D.</strong> Redes de Computadores. 5ª ed. Pearson, 2011.</li>
+                    <li><strong>KUROSE, J. F.; ROSS, K. W.</strong> Redes de Computadores e a Internet. 6ª ed. Pearson, 2013.</li>
+                    <li><strong>STALLINGS, W.</strong> Comunicação de Dados e Redes de Computadores. 5ª ed. Pearson, 2016.</li>
+                    <li><strong>COMER, D. E.</strong> Interligação de Redes com TCP/IP. 6ª ed. Pearson, 2015.</li>
+                    <li><strong>TORRES, G.</strong> Redes de Computadores. 2ª ed. Axcel Books, 2014.</li>
+                </ul>
+            </div>
+            
+            <div class="protocol-box">
+                <h4>Recursos Online:</h4>
+                <ul>
+                    <li><strong>RFC Repository:</strong> https://www.rfc-editor.org/</li>
+                    <li><strong>IEEE Standards:</strong> https://standards.ieee.org/</li>
+                    <li><strong>Wireshark University:</strong> https://www.wireshark.org/</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">25</span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prev-btn" onclick="previousSlide()">◀ Anterior</button>
+        <button class="nav-btn" id="next-btn" onclick="nextSlide()">Próximo ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            // Update navigation buttons
+            document.getElementById('prev-btn').disabled = currentSlide === 0;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+
+        // Add print styles for PDF export
+        const style = document.createElement('style');
+        style.textContent = `
+            @media print {
+                .slide {
+                    display: block !important;
+                    page-break-after: always;
+                    height: 100vh;
+                    width: 100vw;
+                }
+                .navigation, .slide-counter {
+                    display: none !important;
+                }
+                body {
+                    overflow: visible;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
