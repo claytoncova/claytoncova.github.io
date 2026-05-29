@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Galeria</title>
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy2: #0f1f3d;
+    --ice: #f0f4f8;
+    --accent: #1e3a5f;
+    --radius: 12px;
+    --trans: .35s cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--navy);color:var(--ice);font-family:'Segoe UI',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow-x:hidden}
+
+  /* ── Header ── */
+  h1{font-size:clamp(1.1rem,3vw,1.6rem);letter-spacing:.15em;text-transform:uppercase;opacity:.7;margin-bottom:2rem;font-weight:300}
+
+  /* ── Carousel wrapper ── */
+  .c-wrap{position:relative;width:min(92vw,900px);user-select:none}
+  .c-track{display:flex;gap:12px;overflow:hidden;border-radius:var(--radius);padding:4px 0}
+  .c-slide{flex:0 0 calc((100% - 24px)/3);aspect-ratio:4/3;border-radius:var(--radius);overflow:hidden;cursor:zoom-in;border:2px solid transparent;transition:border-color var(--trans),transform var(--trans),box-shadow var(--trans)}
+  .c-slide img{width:100%;height:100%;object-fit:cover;display:block;transition:transform var(--trans)}
+  .c-slide:hover{border-color:var(--ice);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.5)}
+  .c-slide:hover img{transform:scale(1.05)}
+
+  /* ── Nav buttons ── */
+  .btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(15,31,61,.85);border:2px solid var(--ice);color:var(--ice);border-radius:50px;width:44px;height:44px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background var(--trans),transform var(--trans);z-index:10;backdrop-filter:blur(4px)}
+  .btn:hover{background:var(--accent);transform:translateY(-50%) scale(1.1)}
+  .btn.prev{left:-22px}
+  .btn.next{right:-22px}
+  .btn:disabled{opacity:.3;cursor:default}
+
+  /* ── Dots ── */
+  .dots{display:flex;gap:8px;justify-content:center;margin-top:1.2rem;flex-wrap:wrap}
+  .dot{width:8px;height:8px;border-radius:50%;background:rgba(240,244,248,.25);border:none;cursor:pointer;padding:0;transition:background var(--trans),transform var(--trans)}
+  .dot.active{background:var(--ice);transform:scale(1.3)}
+
+  /* ── Counter ── */
+  .counter{text-align:center;margin-top:.6rem;font-size:.8rem;opacity:.45;letter-spacing:.1em}
+
+  /* ── Lightbox ── */
+  #lb{display:none;position:fixed;inset:0;background:rgba(5,10,20,.97);z-index:1000;align-items:center;justify-content:center;animation:fadeIn .25s}
+  #lb.open{display:flex}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  #lb img{max-width:98vw;max-height:96vh;object-fit:contain;border-radius:8px;box-shadow:0 0 60px rgba(0,0,0,.8)}
+  .lb-btn{position:fixed;top:50%;transform:translateY(-50%);background:rgba(15,31,61,.85);border:2px solid var(--ice);color:var(--ice);border-radius:50px;width:50px;height:50px;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background var(--trans);z-index:1001;backdrop-filter:blur(4px)}
+  .lb-btn:hover{background:var(--accent)}
+  #lb-prev{left:12px}
+  #lb-next{right:12px}
+  #lb-close{position:fixed;top:14px;right:14px;width:42px;height:42px;font-size:1.2rem;border-radius:50px}
+  #lb-counter{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);font-size:.85rem;opacity:.5;letter-spacing:.1em}
+
+  @media(max-width:600px){
+    .c-slide{flex:0 0 calc((100% - 12px)/2)}
+    .btn.prev{left:-18px}.btn.next{right:-18px}
+  }
+</style>
+</head>
+<body>
+
+<h1>Engenharia de Contexto</h1>
+
+<div class="c-wrap">
+  <button class="btn prev" id="prev">&#8592;</button>
+  <div class="c-track" id="track"></div>
+  <button class="btn next" id="next">&#8594;</button>
+</div>
+<div class="dots" id="dots"></div>
+<div class="counter" id="counter"></div>
+
+<!-- Lightbox -->
+<div id="lb">
+  <button class="lb-btn" id="lb-prev">&#8592;</button>
+  <img id="lb-img" src="" alt="">
+  <button class="lb-btn" id="lb-next">&#8594;</button>
+  <button class="lb-btn" id="lb-close">&#10005;</button>
+  <div id="lb-counter"></div>
+</div>
+
+<script>
+const N=34, imgs=Array.from({length:N},(_,i)=>`${i+1}.jpg`);
+const PER=window.innerWidth<=600?2:3;
+let cur=0, lbIdx=0;
+
+// Build slides
+const track=document.getElementById('track');
+imgs.forEach((src,i)=>{
+  const s=document.createElement('div');
+  s.className='c-slide';
+  s.innerHTML=`<img src="${src}" alt="Imagem ${i+1}" loading="lazy">`;
+  s.onclick=()=>openLb(i);
+  track.appendChild(s);
+});
+
+// Dots
+const dotsEl=document.getElementById('dots');
+const pages=Math.ceil(N/PER);
+for(let i=0;i<pages;i++){
+  const d=document.createElement('button');
+  d.className='dot'+(i===0?' active':'');
+  d.onclick=()=>go(i*PER);
+  dotsEl.appendChild(d);
+}
+
+function go(idx){
+  cur=Math.max(0,Math.min(idx,N-PER));
+  const w=track.firstChild.offsetWidth+12;
+  track.style.transform=`translateX(-${cur*w}px)`;
+  track.style.transition=`transform var(--trans)`;
+  // update dots
+  const page=Math.floor(cur/PER);
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===page));
+  document.getElementById('prev').disabled=cur===0;
+  document.getElementById('next').disabled=cur>=N-PER;
+  document.getElementById('counter').textContent=`${cur+1}–${Math.min(cur+PER,N)} / ${N}`;
+}
+
+document.getElementById('prev').onclick=()=>go(cur-PER);
+document.getElementById('next').onclick=()=>go(cur+PER);
+
+// Keyboard carousel
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('lb').classList.contains('open')){
+    if(e.key==='ArrowLeft')lbGo(lbIdx-1);
+    else if(e.key==='ArrowRight')lbGo(lbIdx+1);
+    else if(e.key==='Escape')closeLb();
+  } else {
+    if(e.key==='ArrowLeft')go(cur-PER);
+    else if(e.key==='ArrowRight')go(cur+PER);
+  }
+});
+
+// Lightbox
+function openLb(i){lbIdx=i;document.getElementById('lb').classList.add('open');lbRender()}
+function closeLb(){document.getElementById('lb').classList.remove('open')}
+function lbGo(i){lbIdx=(i+N)%N;lbRender()}
+function lbRender(){
+  document.getElementById('lb-img').src=imgs[lbIdx];
+  document.getElementById('lb-img').alt=`Imagem ${lbIdx+1}`;
+  document.getElementById('lb-counter').textContent=`${lbIdx+1} / ${N}`;
+}
+document.getElementById('lb-prev').onclick=()=>lbGo(lbIdx-1);
+document.getElementById('lb-next').onclick=()=>lbGo(lbIdx+1);
+document.getElementById('lb-close').onclick=closeLb;
+document.getElementById('lb').onclick=e=>{if(e.target===document.getElementById('lb'))closeLb()};
+
+go(0);
+</script>
+</body>
+</html>
