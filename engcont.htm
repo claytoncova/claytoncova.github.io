@@ -3,128 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Galeria</title>
+<title>Apresentação</title>
 <style>
-  :root {
-    --navy: #0a1628;
-    --navy2: #0f1f3d;
-    --ice: #f0f4f8;
-    --accent: #1e3a5f;
-    --radius: 12px;
-    --trans: .35s cubic-bezier(.4,0,.2,1);
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--navy);color:var(--ice);font-family:'Segoe UI',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow-x:hidden}
+:root{--navy:#0a1628;--ice:#f0f4f8;--accent:#1e3a5f;--r:12px;--t:.35s cubic-bezier(.4,0,.2,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--ice);font-family:'Segoe UI',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1rem}
+h1{font-size:clamp(1rem,3vw,1.5rem);letter-spacing:.15em;text-transform:uppercase;opacity:.6;margin-bottom:2rem;font-weight:300}
 
-  /* ── Header ── */
-  h1{font-size:clamp(1.1rem,3vw,1.6rem);letter-spacing:.15em;text-transform:uppercase;opacity:.7;margin-bottom:2rem;font-weight:300}
+/* wrapper clips the track */
+.c-wrap{position:relative;width:min(94vw,900px)}
+.c-viewport{overflow:hidden;border-radius:var(--r)}
+.c-track{display:flex;gap:12px;transition:transform var(--t);will-change:transform}
 
-  /* ── Carousel wrapper ── */
-  .c-wrap{position:relative;width:min(92vw,900px);user-select:none}
-  .c-track{display:flex;gap:12px;overflow:hidden;border-radius:var(--radius);padding:4px 0}
-  .c-slide{flex:0 0 calc((100% - 24px)/3);aspect-ratio:4/3;border-radius:var(--radius);overflow:hidden;cursor:zoom-in;border:2px solid transparent;transition:border-color var(--trans),transform var(--trans),box-shadow var(--trans)}
-  .c-slide img{width:100%;height:100%;object-fit:cover;display:block;transition:transform var(--trans)}
-  .c-slide:hover{border-color:var(--ice);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.5)}
-  .c-slide:hover img{transform:scale(1.05)}
+/* each slide: fixed pixel width set by JS */
+.c-slide{flex-shrink:0;border-radius:var(--r);overflow:hidden;cursor:zoom-in;border:2px solid transparent;transition:border-color var(--t),transform var(--t),box-shadow var(--t);aspect-ratio:4/3}
+.c-slide img{width:100%;height:100%;object-fit:cover;display:block;transition:transform var(--t)}
+.c-slide:hover{border-color:var(--ice);transform:translateY(-3px);box-shadow:0 12px 32px #0006}
+.c-slide:hover img{transform:scale(1.06)}
 
-  /* ── Nav buttons ── */
-  .btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(15,31,61,.85);border:2px solid var(--ice);color:var(--ice);border-radius:50px;width:44px;height:44px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background var(--trans),transform var(--trans);z-index:10;backdrop-filter:blur(4px)}
-  .btn:hover{background:var(--accent);transform:translateY(-50%) scale(1.1)}
-  .btn.prev{left:-22px}
-  .btn.next{right:-22px}
-  .btn:disabled{opacity:.3;cursor:default}
+.btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(15,31,61,.9);border:2px solid var(--ice);color:var(--ice);border-radius:50px;width:44px;height:44px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background var(--t),transform var(--t);z-index:5;backdrop-filter:blur(4px)}
+.btn:hover{background:var(--accent);transform:translateY(-50%) scale(1.1)}
+.btn.prev{left:-22px}.btn.next{right:-22px}
+.btn:disabled{opacity:.25;cursor:default;pointer-events:none}
 
-  /* ── Dots ── */
-  .dots{display:flex;gap:8px;justify-content:center;margin-top:1.2rem;flex-wrap:wrap}
-  .dot{width:8px;height:8px;border-radius:50%;background:rgba(240,244,248,.25);border:none;cursor:pointer;padding:0;transition:background var(--trans),transform var(--trans)}
-  .dot.active{background:var(--ice);transform:scale(1.3)}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:1.1rem;flex-wrap:wrap}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(240,244,248,.2);border:none;cursor:pointer;padding:0;transition:background var(--t),transform var(--t)}
+.dot.active{background:var(--ice);transform:scale(1.35)}
 
-  /* ── Counter ── */
-  .counter{text-align:center;margin-top:.6rem;font-size:.8rem;opacity:.45;letter-spacing:.1em}
+.counter{text-align:center;margin-top:.55rem;font-size:.78rem;opacity:.4;letter-spacing:.08em}
 
-  /* ── Lightbox ── */
-  #lb{display:none;position:fixed;inset:0;background:rgba(5,10,20,.97);z-index:1000;align-items:center;justify-content:center;animation:fadeIn .25s}
-  #lb.open{display:flex}
-  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-  #lb img{max-width:98vw;max-height:96vh;object-fit:contain;border-radius:8px;box-shadow:0 0 60px rgba(0,0,0,.8)}
-  .lb-btn{position:fixed;top:50%;transform:translateY(-50%);background:rgba(15,31,61,.85);border:2px solid var(--ice);color:var(--ice);border-radius:50px;width:50px;height:50px;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background var(--trans);z-index:1001;backdrop-filter:blur(4px)}
-  .lb-btn:hover{background:var(--accent)}
-  #lb-prev{left:12px}
-  #lb-next{right:12px}
-  #lb-close{position:fixed;top:14px;right:14px;width:42px;height:42px;font-size:1.2rem;border-radius:50px}
-  #lb-counter{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);font-size:.85rem;opacity:.5;letter-spacing:.1em}
+/* Lightbox */
+#lb{display:none;position:fixed;inset:0;background:rgba(4,8,18,.97);z-index:1000;align-items:center;justify-content:center}
+#lb.open{display:flex;animation:fi .2s}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+#lb-img{max-width:96vw;max-height:92vh;object-fit:contain;border-radius:8px;box-shadow:0 0 80px #000a}
+.lbtn{position:fixed;top:50%;transform:translateY(-50%);background:rgba(15,31,61,.9);border:2px solid var(--ice);color:var(--ice);border-radius:50px;width:50px;height:50px;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background var(--t);z-index:1001;backdrop-filter:blur(4px)}
+.lbtn:hover{background:var(--accent)}
+#lb-prev{left:12px}#lb-next{right:12px}
+#lb-close{position:fixed;top:12px;right:12px;width:42px;height:42px;font-size:1.1rem}
+#lb-info{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);font-size:.82rem;opacity:.45;letter-spacing:.1em;white-space:nowrap}
 
-  @media(max-width:600px){
-    .c-slide{flex:0 0 calc((100% - 12px)/2)}
-    .btn.prev{left:-18px}.btn.next{right:-18px}
-  }
+@media(max-width:540px){.btn.prev{left:-16px}.btn.next{right:-16px}}
 </style>
 </head>
 <body>
-
 <h1>Engenharia de Contexto</h1>
 
 <div class="c-wrap">
   <button class="btn prev" id="prev">&#8592;</button>
-  <div class="c-track" id="track"></div>
+  <div class="c-viewport"><div class="c-track" id="track"></div></div>
   <button class="btn next" id="next">&#8594;</button>
 </div>
 <div class="dots" id="dots"></div>
 <div class="counter" id="counter"></div>
 
-<!-- Lightbox -->
 <div id="lb">
-  <button class="lb-btn" id="lb-prev">&#8592;</button>
+  <button class="lbtn" id="lb-prev">&#8592;</button>
   <img id="lb-img" src="" alt="">
-  <button class="lb-btn" id="lb-next">&#8594;</button>
-  <button class="lb-btn" id="lb-close">&#10005;</button>
-  <div id="lb-counter"></div>
+  <button class="lbtn" id="lb-next">&#8594;</button>
+  <button class="lbtn" id="lb-close">&#10005;</button>
+  <div id="lb-info"></div>
 </div>
 
 <script>
-const N=34, imgs=Array.from({length:N},(_,i)=>`${i+1}.jpg`);
-const PER=window.innerWidth<=600?2:3;
-let cur=0, lbIdx=0;
+const N=34;
+const imgs=Array.from({length:N},(_,i)=>`${i+1}.jpg`);
+const GAP=12;
+let PER=3, slideW=0, cur=0, lbIdx=0;
 
-// Build slides
 const track=document.getElementById('track');
+const viewport=track.parentElement;
+const wrap=document.querySelector('.c-wrap');
+const dotsEl=document.getElementById('dots');
+const btnPrev=document.getElementById('prev');
+const btnNext=document.getElementById('next');
+const lbEl=document.getElementById('lb');
+const lbImg=document.getElementById('lb-img');
+const lbInfo=document.getElementById('lb-info');
+
+// Build all slides once
 imgs.forEach((src,i)=>{
   const s=document.createElement('div');
   s.className='c-slide';
-  s.innerHTML=`<img src="${src}" alt="Imagem ${i+1}" loading="lazy">`;
-  s.onclick=()=>openLb(i);
+  const im=document.createElement('img');
+  im.src=src; im.alt=`Imagem ${i+1}`; im.loading='lazy';
+  s.appendChild(im);
+  s.addEventListener('click',()=>openLb(i));
   track.appendChild(s);
 });
 
-// Dots
-const dotsEl=document.getElementById('dots');
-const pages=Math.ceil(N/PER);
-for(let i=0;i<pages;i++){
-  const d=document.createElement('button');
-  d.className='dot'+(i===0?' active':'');
-  d.onclick=()=>go(i*PER);
-  dotsEl.appendChild(d);
+function calcLayout(){
+  PER=window.innerWidth<=540?2:3;
+  const vw=viewport.clientWidth;
+  slideW=Math.floor((vw-(PER-1)*GAP)/PER);
+  document.querySelectorAll('.c-slide').forEach(s=>{s.style.width=slideW+'px'});
+  buildDots();
+  go(cur,false);
 }
 
-function go(idx){
-  cur=Math.max(0,Math.min(idx,N-PER));
-  const w=track.firstChild.offsetWidth+12;
-  track.style.transform=`translateX(-${cur*w}px)`;
-  track.style.transition=`transform var(--trans)`;
-  // update dots
+function buildDots(){
+  dotsEl.innerHTML='';
+  const pages=Math.ceil(N/PER);
+  for(let i=0;i<pages;i++){
+    const d=document.createElement('button');
+    d.className='dot';
+    d.addEventListener('click',()=>go(i*PER));
+    dotsEl.appendChild(d);
+  }
+}
+
+function go(idx,animated=true){
+  const maxIdx=N-PER;
+  cur=Math.max(0,Math.min(idx,maxIdx));
+  const offset=cur*(slideW+GAP);
+  track.style.transition=animated?'transform var(--t)':'none';
+  track.style.transform=`translateX(-${offset}px)`;
   const page=Math.floor(cur/PER);
   document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===page));
-  document.getElementById('prev').disabled=cur===0;
-  document.getElementById('next').disabled=cur>=N-PER;
+  btnPrev.disabled=cur===0;
+  btnNext.disabled=cur>=maxIdx;
   document.getElementById('counter').textContent=`${cur+1}–${Math.min(cur+PER,N)} / ${N}`;
 }
 
-document.getElementById('prev').onclick=()=>go(cur-PER);
-document.getElementById('next').onclick=()=>go(cur+PER);
+btnPrev.addEventListener('click',()=>go(cur-PER));
+btnNext.addEventListener('click',()=>go(cur+PER));
 
-// Keyboard carousel
+// Lightbox
+function openLb(i){lbIdx=i;lbEl.classList.add('open');renderLb()}
+function closeLb(){lbEl.classList.remove('open')}
+function lbGo(i){lbIdx=(i+N)%N;renderLb()}
+function renderLb(){lbImg.src=imgs[lbIdx];lbImg.alt=`Imagem ${lbIdx+1}`;lbInfo.textContent=`${lbIdx+1} / ${N}`}
+
+document.getElementById('lb-prev').addEventListener('click',()=>lbGo(lbIdx-1));
+document.getElementById('lb-next').addEventListener('click',()=>lbGo(lbIdx+1));
+document.getElementById('lb-close').addEventListener('click',closeLb);
+lbEl.addEventListener('click',e=>{if(e.target===lbEl)closeLb()});
+
 document.addEventListener('keydown',e=>{
-  if(document.getElementById('lb').classList.contains('open')){
+  if(lbEl.classList.contains('open')){
     if(e.key==='ArrowLeft')lbGo(lbIdx-1);
     else if(e.key==='ArrowRight')lbGo(lbIdx+1);
     else if(e.key==='Escape')closeLb();
@@ -134,21 +150,19 @@ document.addEventListener('keydown',e=>{
   }
 });
 
-// Lightbox
-function openLb(i){lbIdx=i;document.getElementById('lb').classList.add('open');lbRender()}
-function closeLb(){document.getElementById('lb').classList.remove('open')}
-function lbGo(i){lbIdx=(i+N)%N;lbRender()}
-function lbRender(){
-  document.getElementById('lb-img').src=imgs[lbIdx];
-  document.getElementById('lb-img').alt=`Imagem ${lbIdx+1}`;
-  document.getElementById('lb-counter').textContent=`${lbIdx+1} / ${N}`;
-}
-document.getElementById('lb-prev').onclick=()=>lbGo(lbIdx-1);
-document.getElementById('lb-next').onclick=()=>lbGo(lbIdx+1);
-document.getElementById('lb-close').onclick=closeLb;
-document.getElementById('lb').onclick=e=>{if(e.target===document.getElementById('lb'))closeLb()};
+// Touch swipe support
+let tx0=null;
+viewport.addEventListener('touchstart',e=>{tx0=e.touches[0].clientX},{passive:true});
+viewport.addEventListener('touchend',e=>{
+  if(tx0===null)return;
+  const dx=tx0-e.changedTouches[0].clientX;
+  if(Math.abs(dx)>40)go(dx>0?cur+PER:cur-PER);
+  tx0=null;
+},{passive:true});
 
-go(0);
+// Init + resize
+calcLayout();
+window.addEventListener('resize',()=>calcLayout());
 </script>
 </body>
 </html>
